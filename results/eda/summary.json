@@ -1,0 +1,38 @@
+{
+  "annotated_images": 7349,
+  "classes": 37,
+  "splits": {
+    "trainval": 3680,
+    "test": 3669
+  },
+  "species": {
+    "Cat": 2371,
+    "Dog": 4978
+  },
+  "modes": {
+    "RGB": 7346,
+    "L": 0,
+    "RGBA": 3,
+    "CMYK": 0
+  },
+  "statuses": {
+    "ok": 7349,
+    "missing": 0,
+    "decode_error": 0,
+    "invalid_size": 0
+  },
+  "measured_images": 7349,
+  "grid_classes": 37,
+  "old_class_counts_match": true,
+  "old_modes_match": true,
+  "orientation": {
+    "landscape": 4775,
+    "portrait": 2263,
+    "near_square": 311
+  },
+  "annotation_sha256": {
+    "list": "6a54ab256e22f7a33c6f17a7669e58ea5f6f9c7a080ec2622c205aefd4b354da",
+    "trainval": "408f3f609481b939c94634169e6413414b733a3faeba440cbdcc5c02142eebdc",
+    "test": "a5454003774ffe01f4f322756d3ba5495bae21cb30bb217ab285dbfa2bef245c"
+  }
+}

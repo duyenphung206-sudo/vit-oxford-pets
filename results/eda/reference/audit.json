@@ -1,0 +1,67 @@
+{
+  "classes": [
+    "Abyssinian",
+    "american_bulldog",
+    "american_pit_bull_terrier",
+    "basset_hound",
+    "beagle",
+    "Bengal",
+    "Birman",
+    "Bombay",
+    "boxer",
+    "British_Shorthair",
+    "chihuahua",
+    "Egyptian_Mau",
+    "english_cocker_spaniel",
+    "english_setter",
+    "german_shorthaired",
+    "great_pyrenees",
+    "havanese",
+    "japanese_chin",
+    "keeshond",
+    "leonberger",
+    "Maine_Coon",
+    "miniature_pinscher",
+    "newfoundland",
+    "Persian",
+    "pomeranian",
+    "pug",
+    "Ragdoll",
+    "Russian_Blue",
+    "saint_bernard",
+    "samoyed",
+    "scottish_terrier",
+    "shiba_inu",
+    "Siamese",
+    "Sphynx",
+    "staffordshire_bull_terrier",
+    "wheaten_terrier",
+    "yorkshire_terrier"
+  ],
+  "n_classes": 37,
+  "split_sizes": {
+    "train": 2944,
+    "val": 736,
+    "test": 3669
+  },
+  "image_modes": {
+    "RGB": 7346,
+    "RGBA": 3
+  },
+  "decode_errors": [],
+  "archive_integrity": {
+    "images.tar.gz": {
+      "present": true,
+      "md5_valid": true
+    },
+    "annotations.tar.gz": {
+      "present": true,
+      "md5_valid": true
+    }
+  },
+  "duplicate_file_groups": [],
+  "duplicate_rgb_groups": [],
+  "cross_split_exact_duplicates": [],
+  "id_overlap": false,
+  "near_duplicates_checked": false
+}

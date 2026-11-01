@@ -1,0 +1,4 @@
+id,class_id,species_id,breed_id,split,species,class_name,status,mode,width,height,warning,error
+Egyptian_Mau_14,12,1,6,trainval,Cat,Egyptian_Mau,ok,RGBA,582,800,,
+Egyptian_Mau_186,12,1,6,trainval,Cat,Egyptian_Mau,ok,RGBA,183,275,,
+Abyssinian_5,1,1,1,test,Cat,Abyssinian,ok,RGBA,200,150,,
