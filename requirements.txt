@@ -1,0 +1,13 @@
+# Phiên bản tối thiểu. Khi môi trường chung đã chốt (nhiệm vụ T08),
+# nhóm trưởng thay bằng phiên bản chính xác: chạy `pip freeze | grep -E "torch|numpy|..."` trên Colab.
+torch>=2.2
+torchvision>=0.17
+numpy
+pandas
+matplotlib
+scikit-learn
+pyyaml
+tqdm
+pillow
+gradio
+pytest

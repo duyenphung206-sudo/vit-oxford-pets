@@ -1,0 +1,41 @@
+# ===== Dữ liệu & trọng số: KHÔNG BAO GIỜ đưa lên GitHub =====
+data/*
+!data/splits/
+!data/splits/**
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+checkpoints/
+runs/
+wandb/
+outputs/
+lightning_logs/
+
+# ===== Bí mật (token Kaggle, Hugging Face...) =====
+.env
+kaggle.json
+*.key
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# ===== Jupyter / Colab =====
+.ipynb_checkpoints/
+
+# ===== Hệ điều hành & IDE =====
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ===== Office (file tạm khi đang mở Word/Excel) =====
+~$*
