@@ -115,7 +115,7 @@ python app/app.py
 | Member | Student ID | Main responsibilities | GitHub |
 |--------|-----------|-----------------------|--------|
 | Phùng Thị Hoàng Duyên (leader) | 24DH190211 | Training pipeline, integration, repo management | [@duyenphung206-sudo](https://github.com/duyenphung206-sudo) |
-| TBD | TBD | Data, CNN baseline, demo | TBD |
+| Nguyễn Ngọc Kỳ | 24DH112710 | Data, CNN baseline, demo | [@Edward2106](https://github.com/Edward2106) |
 | TBD | TBD | Self-attention & ViT theory, from-scratch ViT | TBD |
 | TBD | TBD | Evaluation, attention visualisation, error analysis | TBD |
 
