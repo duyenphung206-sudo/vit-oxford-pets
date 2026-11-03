@@ -1,0 +1,15 @@
+{
+  "checkpoint_sha256": "4c897b64829284a09bd9e85ba2984b97683cd074cb5711086bd698c4158331cb",
+  "sample_id": "Abyssinian_100",
+  "top5": {
+    "Abyssinian": 0.9156299829483032,
+    "Persian": 0.005788819398730993,
+    "pomeranian": 0.003981320187449455,
+    "shiba_inu": 0.0035159196704626083,
+    "havanese": 0.0033259561751037836
+  },
+  "gradio_interface_constructed": true,
+  "browser_upload_verified": false,
+  "attention_map_verified": false,
+  "gif_recorded": false
+}

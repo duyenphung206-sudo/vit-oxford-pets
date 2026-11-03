@@ -1,0 +1,17 @@
+# Proposal only: requires TV1 training/evaluation pipeline integration.
+experiment: e1_resnet50
+model: resnet50
+weights: IMAGENET1K_V1
+num_classes: 37
+strategy: full_finetune
+seed: 42
+split_dir: data/splits
+data_dir: data
+batch_size: 16
+epochs: 15
+optimizer: AdamW
+learning_rate: 0.00003
+weight_decay: 0.05
+augmentation: true
+selection_metric: val_accuracy
+output_dir: results/e1_resnet50/seed42
