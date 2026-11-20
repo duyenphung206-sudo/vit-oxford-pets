@@ -1,4 +1,4 @@
-"""Shared helpers: configuration, seeding, devices and logging."""
+"""Ham dung chung: doc config, co dinh seed, thiet bi, ghi log."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ import yaml
 
 
 def load_config(path: str | Path) -> dict[str, Any]:
-    """Load a YAML config. A ``base`` key names a parent config that is merged first."""
+    """Doc file YAML; khoa ``base`` tro toi file config cha duoc gop truoc."""
     path = Path(path)
     with path.open(encoding="utf-8") as f:
         cfg = yaml.safe_load(f) or {}
@@ -36,7 +36,7 @@ def deep_update(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any
 
 
 def set_seed(seed: int, deterministic: bool = False) -> torch.Generator:
-    """Seed Python, NumPy and PyTorch; return a generator for DataLoader shuffling."""
+    """Co dinh seed cho Python, NumPy, PyTorch; tra ve generator cho DataLoader."""
     os.environ["PYTHONHASHSEED"] = str(seed)
     random.seed(seed)
     np.random.seed(seed)
@@ -48,13 +48,6 @@ def set_seed(seed: int, deterministic: bool = False) -> torch.Generator:
     generator = torch.Generator()
     generator.manual_seed(seed)
     return generator
-
-
-def seed_worker(worker_id: int) -> None:
-    """``worker_init_fn`` that makes DataLoader workers reproducible."""
-    worker_seed = torch.initial_seed() % 2**32
-    np.random.seed(worker_seed)
-    random.seed(worker_seed)
 
 
 def get_device() -> torch.device:
@@ -75,7 +68,7 @@ def save_json(data: dict[str, Any], path: str | Path) -> None:
 
 
 class CSVLogger:
-    """Append one row per epoch to a CSV file."""
+    """Ghi mot dong cho moi epoch vao file CSV."""
 
     def __init__(self, path: str | Path, fieldnames: list[str]) -> None:
         self.path = Path(path)
