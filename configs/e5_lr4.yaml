@@ -1,0 +1,5 @@
+# Optional run, excluded from the notebook defaults.
+base: e4_vit_full_ft.yaml
+experiment: e5_lr4
+optimizer:
+  lr: 0.03

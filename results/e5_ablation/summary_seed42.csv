@@ -1,0 +1,6 @@
+id,learning_rate,augmentation,status,val_accuracy,val_loss,training_time_s,epochs,seed,source,reason
+E5-LR1,0.001,True,PENDING,,,,,42,results/e5_lr1/seed42,Awaiting GPU run
+E5-LR2,0.003,True,DONE,0.955163,0.311232,538.6,10,42,results/e4_vit_full_ft/seed42,Repository evidence verified
+E5-LR3,0.01,True,PENDING,,,,,42,results/e5_lr3/seed42,Awaiting GPU run
+E5-LR4,0.03,True,PENDING,,,,,42,results/e5_lr4/seed42,Awaiting GPU run
+E5-AUG,0.003,False,PENDING,,,,,42,results/e5_aug/seed42,Awaiting GPU run

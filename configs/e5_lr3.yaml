@@ -1,0 +1,4 @@
+base: e4_vit_full_ft.yaml
+experiment: e5_lr3
+optimizer:
+  lr: 0.01

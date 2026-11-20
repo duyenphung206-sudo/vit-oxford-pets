@@ -1,2 +1,12 @@
-# T30 — PENDING TRAINING
-Chưa có ablation thật; một run ViT cá nhân không phải sáu thí nghiệm. plan.json là thiết kế sáu run (3 LR × augmentation on/off), không phải kết quả. Chưa có cấu hình tốt nhất của nhóm hoặc training API của TV1 nên không tạo script gọi interface giả định. Giữ mọi tham số khác cố định, dùng chung split, chọn bằng val, không dùng test để chọn LR. Bảng validation accuracy chỉ lập sau khi từng run có log kiểm chứng; results hiện rỗng.
+# E5 — Nguyễn Ngọc Kỳ
+
+DONE: E4 seed42 baseline evidence validated; see summary_seed42.csv/json.
+DONE: E4-inheriting SGD configurations, GPU-only runner, selectable Colab notebook and comparison plots.
+PENDING: new seed42 runs E5-LR1, E5-LR3, E5-AUG; E5-LR4 is optional.
+
+This plan supersedes the earlier provisional LR grid in this directory.
+Selection follows minimum validation loss. Reuse E4 seed42, never the three-seed average.
+Missing or inconsistent evidence is labelled explicitly, with no fabricated values.
+
+Regenerate: `python -m src.ky_experiments --summarize`.
+Select one run: `python -m src.ky_experiments E5-LR1` (requires CUDA).
