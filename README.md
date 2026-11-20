@@ -1,19 +1,14 @@
-<!--
-  README TEMPLATE — mọi chỗ trong dấu < > hoặc ghi "TBD" sẽ được nhóm điền dần
-  khi có kết quả thật. TUYỆT ĐỐI không điền số liệu chưa chạy ra.
--->
-
 # Vision Transformer (ViT-B/16) Fine-tuning on Oxford-IIIT Pet
 
-> Understanding self-attention for images and transferring an ImageNet-pretrained **ViT-B/16** to fine-grained classification of **37 cat & dog breeds**.
+> Understanding self-attention for images and transferring an ImageNet-pretrained **ViT-B/16** to fine-grained classification of **37 cat and dog breeds**.
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?logo=pytorch&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.14-EE4C2C?logo=pytorch&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
+![Tests](https://github.com/duyenphung206-sudo/vit-oxford-pets/actions/workflows/tests.yml/badge.svg)
 
 <p align="center">
-  <!-- TBD: thay bằng hình attention map / demo GIF thật -->
-  <img src="figures/teaser.png" width="720" alt="Attention rollout of ViT-B/16 on Oxford-IIIT Pet">
+  <img src="figures/e4_curves.png" width="760" alt="Training curves of full fine-tuning of ViT-B/16 (3 seeds)">
 </p>
 
 ## Table of Contents
@@ -24,106 +19,106 @@
 - [Repository Structure](#repository-structure)
 - [Getting Started](#getting-started)
 - [Reproducing the Experiments](#reproducing-the-experiments)
-- [Pretrained Checkpoints](#pretrained-checkpoints)
+- [Checkpoints](#checkpoints)
 - [Demo](#demo)
 - [Team](#team)
 - [References](#references)
 - [License](#license)
 
 ## Overview
-This project is the final-term project of the **Deep Learning** course at HUFLIT (Ho Chi Minh City University of Foreign Languages – Information Technology), academic year 2026–2027.
+Final-term project of the **Deep Learning** course, Faculty of Information Technology, HUFLIT (Ho Chi Minh City University of Foreign Languages – Information Technology), academic year 2026–2027. Instructor: Tôn Quang Toại.
 
-**Goals**
-1. Explain the self-attention mechanism and the Vision Transformer architecture [1], [2].
-2. Re-implement ViT-B/16 from scratch in PyTorch and verify it against `torchvision` (identical logits).
-3. Compare three transfer-learning strategies — *feature extraction*, *partial fine-tuning*, *full fine-tuning* — against a CNN baseline (ResNet-50 [4]).
-4. Visualise what the model attends to (Attention Rollout [5]) and analyse its errors.
+The project answers three questions with the same data split and training protocol:
+1. **Q1** – With the same ImageNet-1K pre-training, does ViT-B/16 outperform the convolutional baseline ResNet-50 [4]?
+2. **Q2** – How much of ViT-B/16 must be updated: only the head, the last four encoder blocks, or the whole network?
+3. **Q3** – How sensitive is the main configuration to the learning rate and to data augmentation?
 
 ## Results
-Test set: official Oxford-IIIT Pet `test` split (3,669 images). Mean ± std over 3 seeds where indicated.
+All runs: Google Colab, NVIDIA T4 16 GB, batch 64, at most 10 epochs, checkpoint with the lowest validation loss. Validation set: 736 images (20 % of the official `trainval`, stratified, seed 42).
 
-| ID | Model | Strategy | Trainable params | Top-1 Acc (%) | Macro-F1 (%) |
-|----|-------|----------|-----------------:|--------------:|-------------:|
-| E1 | ResNet-50 | Full fine-tuning | TBD | TBD | TBD |
-| E2 | ViT-B/16 | Feature extraction (linear probe) | TBD | TBD | TBD |
-| E3 | ViT-B/16 | Fine-tune last *k* blocks | TBD | TBD | TBD |
-| E4 | ViT-B/16 | Full fine-tuning (3 seeds) | TBD | TBD ± TBD | TBD ± TBD |
+| ID | Model | Strategy | Trainable params | Val accuracy (%) | Val loss | Time / epoch (s) |
+|----|-------|----------|-----------------:|-----------------:|---------:|-----------------:|
+| E1 | ResNet-50 | full fine-tuning | 23,583,845 | pending | pending | pending |
+| E2 | ViT-B/16 | feature extraction (linear probe) | 28,453 | pending | pending | pending |
+| E3 | ViT-B/16 | fine-tune last 4 blocks | 28,381,477 | pending | pending | pending |
+| E4 | ViT-B/16 | full fine-tuning, seeds 42/43/44 | 85,827,109 | **95.47 ± 0.08** | 0.3097 ± 0.0019 | 55.2 |
 
-For context, Dosovitskiy *et al.* report 93.81 % on Oxford-IIIT Pets for ViT-B/16 pretrained on ImageNet and fine-tuned at 384×384 resolution ([1], Table 5). Our setting differs (224×224, `torchvision` weights), so the numbers are not directly comparable.
+E5 (learning rate {0.001, 0.003, 0.01, 0.03} and augmentation on/off) and the test-set evaluation (official `test` split, 3,669 images) are added when the corresponding runs are merged. Each value comes from `results/<experiment>/`.
+
+For context, Dosovitskiy *et al.* report 93.81 % on Oxford-IIIT Pets for ViT-B/16 pretrained on ImageNet and fine-tuned at 384 × 384 with batch 512 ([1], Table 5). Our setting differs (224 × 224, batch 64, `torchvision` weights, validation instead of test), so the numbers are not directly comparable.
 
 ## Dataset
-**Oxford-IIIT Pet** [3]: 37 breeds (12 cat, 25 dog), ~200 images per class, 7,349 images in total.
+**Oxford-IIIT Pet** [3]: 37 breeds (12 cat, 25 dog), 7,349 annotated images. 32 of the 37 classes have exactly 100 `trainval` images; the smallest class (Egyptian Mau) has 93.
 
 | Split | Images | Usage |
 |-------|-------:|-------|
-| `trainval` (official) → train | TBD | training |
-| `trainval` (official) → val | TBD | model selection (stratified, seed 42) |
-| `test` (official) | 3,669 | final report only |
+| official `trainval` → train | 2,944 | training |
+| official `trainval` → val | 736 | checkpoint selection, early stopping, hyper-parameters |
+| official `test` | 3,669 | final evaluation, once per model |
 
-The dataset is **not** stored in this repository. It is downloaded automatically by `torchvision.datasets.OxfordIIITPet(download=True)`. Licence: CC BY-SA 4.0 (see [`docs/data_card.md`](docs/data_card.md)).
+The split is stored in `data/splits/train.csv` and `data/splits/val.csv` with SHA-256 hashes of the annotation files in `data/splits/metadata.json`; every experiment reads the same files. Images are **not** stored in this repository; they are downloaded by `torchvision.datasets.OxfordIIITPet(download=True)`. Licence: CC BY-SA 4.0 (see [`docs/data_card.md`](docs/data_card.md)).
 
 ## Method
-<!-- TBD: hình sơ đồ kiến trúc ViT tự vẽ -->
-- Backbone: `torchvision.models.vit_b_16` with `ViT_B_16_Weights.IMAGENET1K_V1` (86.6 M parameters).
-- Head: `Linear(768 → 37)` replacing the 1000-class ImageNet head.
-- Pre-processing: resize 256 → center crop 224 → ImageNet mean/std normalisation.
-- Training details: see [`configs/`](configs/) and Chapter 4 of the report.
+- Backbone: `torchvision.models.vit_b_16`, `ViT_B_16_Weights.IMAGENET1K_V1` (86.6 M parameters, ImageNet-1K top-1 81.07 %).
+- Head: zero-initialised `Linear(768 → 37)` replacing the ImageNet head ([1], Sec. 3.2).
+- Transfer strategies: feature extraction, partial fine-tuning (last 4 blocks + final LayerNorm), full fine-tuning (`src/models/factory.py`).
+- Optimisation: SGD, momentum 0.9, no weight decay, learning rate 0.003 with a 1-epoch linear warm-up and per-step cosine decay, global gradient-norm clipping at 1, mixed precision ([1], App. B.1.1).
+- Pre-processing: evaluation = resize 256 → center crop 224 → ImageNet mean/std; training = `RandomResizedCrop(224, scale=(0.7, 1.0))`, horizontal flip, mild `ColorJitter`.
+- Full protocol and sources: [`docs/experiment_protocol.md`](docs/experiment_protocol.md).
 
 ## Repository Structure
 ```
 vit-oxford-pets/
-├── app/            # Gradio demo
-├── configs/        # YAML config of every experiment (E1–E5)
-├── data/splits/    # train/val index files (images are NOT committed)
-├── docs/           # data card, model card, paper notes, meeting notes
-├── figures/        # figures used in README / report
-├── notebooks/      # EDA, from-scratch ViT, attention maps, error analysis
-├── report/         # final report (PDF)
-├── results/        # metrics.json + training logs of each experiment
-├── slides/         # presentation (PDF)
-├── src/            # data.py, engine.py, train.py, evaluate.py, models/
-└── tests/          # unit tests (shapes, parameter count)
+├── app/              # Gradio demo (top-5 breeds)
+├── configs/          # YAML config of every experiment (inherits base.yaml)
+├── data/splits/      # train/val index files and metadata (images are NOT committed)
+├── docs/             # data card, experiment protocol, references
+├── figures/          # figures used in the README and the report
+├── notebooks/        # environment check, training runs on Colab
+├── results/          # log.csv, metrics.json, summary.json of each experiment
+├── src/              # data.py, train.py, engine.py, optim.py, summarize.py, models/factory.py
+└── tests/            # unit tests run by GitHub Actions (ruff + pytest)
 ```
 
 ## Getting Started
 ```bash
-git clone https://github.com/<owner>/vit-oxford-pets.git
+git clone https://github.com/duyenphung206-sudo/vit-oxford-pets.git
 cd vit-oxford-pets
 pip install -r requirements.txt
+python -m pytest
 ```
-Or open the notebooks directly in Google Colab (GPU runtime).
+Versions in `requirements.txt` are the ones verified on Google Colab (Python 3.13, PyTorch 2.14.1, torchvision 0.29.1) by `notebooks/00_setup_check.ipynb`.
 
 ## Reproducing the Experiments
-```bash
-# TBD — điền lệnh thật khi src/train.py hoàn thành
-python -m src.train    --config configs/e4_vit_full_ft.yaml --seed 42
-python -m src.evaluate --config configs/e4_vit_full_ft.yaml --checkpoint <path/to/best.pt>
-```
+On Google Colab with a T4 GPU, open `notebooks/06_train_e4_vit.ipynb` and run all cells: it clones the repository, downloads the dataset to `/content/data`, trains the three seeds and writes `results/e4_vit_full_ft/summary.json` and `figures/e4_curves.png`.
 
-## Pretrained Checkpoints
-| Experiment | Download |
-|-----------|----------|
-| E4 – ViT-B/16 full fine-tuning | TBD (GitHub Release `v1.0.0`) |
+From a terminal (dataset under `<data_root>/oxford-iiit-pet`):
+```bash
+python -m src.train --config configs/e4_vit_full_ft.yaml --seed 42
+python -m src.train --config configs/e4_vit_full_ft.yaml --fake-data --epochs 1   # pipeline check without the dataset
+```
+Set `data.root` in `configs/base.yaml` to `<data_root>`. Outputs go to `results/<experiment>/seed<seed>/`, checkpoints to `checkpoints/<experiment>/seed<seed>/best.pt` (ignored by git).
+
+## Checkpoints
+Checkpoints are not stored in the repository (about 330 MB each). The E4 checkpoint used for evaluation and the demo (seed 44, lowest validation loss) is attached to the GitHub Release `v1.0.0`.
 
 ## Demo
 ```bash
-python app/app.py
+python app/app.py --checkpoint <path/to/best.pt> --device cpu --port 7860
 ```
-<!-- TBD: chèn figures/demo.gif -->
+Then open http://127.0.0.1:7860, upload a cat or dog photo and read the five most likely breeds.
 
 ## Team
 | Member | Student ID | Main responsibilities | GitHub |
 |--------|-----------|-----------------------|--------|
-| Phùng Thị Hoàng Duyên (leader) | 24DH190211 | Training pipeline, integration, repo management | [@duyenphung206-sudo](https://github.com/duyenphung206-sudo) |
-| TBD | TBD | Data, CNN baseline, demo | TBD |
-| TBD | TBD | Self-attention & ViT theory, from-scratch ViT | TBD |
-| TBD | TBD | Evaluation, attention visualisation, error analysis | TBD |
-
-Instructor: TBD — Faculty of Information Technology, HUFLIT.
+| Phùng Thị Hoàng Duyên (leader) | 24DH190211 | model factory, training pipeline, experiment protocol, E4, repository | [@duyenphung206-sudo](https://github.com/duyenphung206-sudo) |
+| Nguyễn Ngọc Kỳ | | data pipeline and EDA, E3, E5, demo | [@Edward2106](https://github.com/Edward2106) |
+| Yến Trinh | | ViT and self-attention analysis, E2, references | [@nlyen-trinh](https://github.com/nlyen-trinh) |
+| Đức Tâm | | E1, evaluation, error analysis, attention visualisation | |
 
 ## References
 [1] A. Dosovitskiy *et al.*, "An image is worth 16x16 words: Transformers for image recognition at scale," in *Proc. Int. Conf. Learn. Represent. (ICLR)*, 2021.
-[2] A. Vaswani *et al.*, "Attention is all you need," in *Adv. Neural Inf. Process. Syst. (NeurIPS)*, vol. 30, 2017, pp. 5998–6008.
+[2] A. Vaswani *et al.*, "Attention is all you need," in *Adv. Neural Inf. Process. Syst.*, vol. 30, 2017, pp. 5998–6008.
 [3] O. M. Parkhi, A. Vedaldi, A. Zisserman, and C. V. Jawahar, "Cats and dogs," in *Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR)*, 2012, pp. 3498–3505, doi: 10.1109/CVPR.2012.6248092.
 [4] K. He, X. Zhang, S. Ren, and J. Sun, "Deep residual learning for image recognition," in *Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR)*, 2016, pp. 770–778.
 [5] S. Abnar and W. Zuidema, "Quantifying attention flow in transformers," in *Proc. 58th Annu. Meeting Assoc. Comput. Linguistics (ACL)*, 2020, pp. 4190–4197, doi: 10.18653/v1/2020.acl-main.385.
