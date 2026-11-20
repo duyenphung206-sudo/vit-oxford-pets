@@ -2,95 +2,132 @@
 
 Cập nhật: 2026-11-21 (Asia/Saigon). Branch duy nhất: `ky/e3-e5-demo-report`.
 
-`DONE` = đã làm và kiểm chứng; `PENDING` = chưa hoàn tất; `BLOCKED` = thiếu đầu vào/quyền;
-`FAILED` = đã thử nhưng không đạt. Không có số liệu huấn luyện giả trong báo cáo.
+`DONE`: đã thực hiện và kiểm chứng. `PENDING`: chưa thực hiện. `BLOCKED`: thiếu đầu vào/quyền.
+`FAILED`: đã thử nhưng không đạt. Không có accuracy, loss hoặc checkpoint giả trong kết quả nghiên cứu.
 
-## 1. Công việc đã hoàn thành
+## 1. Nhiệm vụ hoàn thành
 
-- DONE: clone đúng repository vào Downloads, kiểm tra README/giao thức/code/config/log/split.
-- DONE: 6 config E3/E5 kế thừa E4, không sửa config hay kết quả E4.
-- DONE: runner riêng `src/ky_experiments.py`, chỉ seed42, chặn CPU train thật và ghi đè run dở.
-- DONE: notebook Colab 07/08, schema nbformat hợp lệ, toàn bộ code cell parse được.
-- DONE: kiểm chứng chính xác head + final LayerNorm + encoder blocks 8–11 trainable.
-- DONE: bảng CSV/JSON E5 và biểu đồ PNG 300 dpi/SVG, nguồn tạo hình tái lập được.
-- DONE: tạo branch riêng trên GitHub bằng giao diện tài khoản Edward2106.
-- DONE: Colab đã cấp Tesla T4, CUDA True; đã bắt đầu E3 trong phiên thật.
+- DONE: config E3 partial và 5 config tham chiếu/ablation E5, kế thừa E4 đúng parser của repository.
+- DONE: E3, E5-LR1, E5-LR3, E5-AUG chạy thật trên Google Colab Tesla T4, seed42, 10 epoch mỗi run.
+- DONE: E5-LR2 tái sử dụng đúng E4 seed42, đối chiếu config/log/metrics, không chạy lại E4.
+- DONE: head + final LayerNorm + 4 encoder blocks cuối trainable; 28,381,477 / 85,827,109 tham số.
+- DONE: notebook 07/08 thực thi đủ 8/9 code cell sau một lần restart kernel T4,
+  trong namespace riêng, tái sử dụng run đã hoàn tất. Output thực được lưu trong notebook.
+- DONE: log.csv, config.yaml, metrics.json, curves.png của bốn run mới đã nhập về Downloads và xác minh lại.
+- DONE: bảng CSV/JSON E5 và biểu đồ PNG 300 dpi/SVG, có mã nguồn tái lập.
+- DONE: 4 checkpoint mới sao lưu Drive, đối chiếu SHA256 bản sao với bản gốc; không đưa checkpoint vào Git.
+- DONE: kiểm thử cục bộ, lint, schema notebook, kiểm tra split và phạm vi thay đổi.
+- DONE: branch riêng và PR #31 về main; không merge.
 
-## 2. Công việc chưa hoàn tất
+## 2. Nhiệm vụ chưa hoàn thành
 
-- PENDING: E3 và các run E5-LR1/LR3/AUG đang được thực thi/theo dõi trên Colab.
-- PENDING: E5-LR4 tùy chọn, không nằm trong danh sách mặc định.
-- BLOCKED: demo E4 thiếu checkpoint đúng của nhóm.
-- BLOCKED: 8 hình và 3 bảng thiếu đề cương/caption; bảng 2-3 cần notebook EDA gốc.
-- PENDING: push nội dung và tạo PR để Duyên review; không merge.
+- PENDING (tùy chọn): E5-LR4, LR=0.03, augmentation bật. Không tạo số thay thế.
+- BLOCKED: demo dùng checkpoint E4 của nhóm — `waiting for E4 checkpoint`.
+- BLOCKED: 8 hình và 3 bảng được giao chưa có đề cương/caption; bảng 2-3 thiếu notebook EDA gốc.
 
-## 3. E3
+## 3. Kết quả E3
 
-Config `configs/e3_vit_partial.yaml`: partial, last_k=4, các điều kiện còn lại kế thừa E4.
-Trainable/total đã kiểm chứng: 28,381,477 / 85,827,109.
-Smoke test CPU 1 epoch bằng dữ liệu giả đã chạy thành công, artifact nằm riêng ngoài repository
-trong `Downloads/.ky-tools/smoke-e3-*`; không dùng các số đó làm kết quả nghiên cứu.
-Kết quả thật: PENDING, chỉ công bố sau khi lấy được log/config/metrics đầy đủ và xác minh.
+| Seed | Strategy | Trainable / total | Best epoch | Val accuracy | Val loss | Tổng thời gian epoch (s) |
+|---:|---|---:|---:|---:|---:|---:|
+| 42 | partial, last 4 blocks + final LayerNorm + head | 28,381,477 / 85,827,109 | 10 | 0.949728 | 0.237091 | 444.2 |
 
-## 4. E5
+Nguồn: `results/e3_vit_partial/seed42/{config.yaml,log.csv,metrics.json}`.
+Peak GPU memory được PyTorch ghi nhận: 2140.6 MiB. Checkpoint chọn theo validation loss nhỏ nhất.
+Smoke test dữ liệu giả được lưu riêng trong `Downloads/.ky-tools/` hoặc `/content/ky-smoke/`, không dùng để báo cáo nghiên cứu.
 
-| Run | LR | Augmentation | Val accuracy | Val loss | Thời gian train (s) | Epoch | Seed | Trạng thái |
+## 4. Kết quả E5
+
+| Run | LR | Augmentation | Val accuracy | Val loss | Tổng thời gian epoch (s) | Epoch | Seed | Trạng thái |
 |---|---:|---|---:|---:|---:|---:|---:|---|
-| E5-LR1 | 0.001 | true | | | | | 42 | PENDING |
-| E5-LR2 | 0.003 | true | 0.955163 | 0.311232 | 538.6 | 10 | 42 | DONE: tái dùng E4 seed42 |
-| E5-LR3 | 0.01 | true | | | | | 42 | PENDING |
+| E5-LR1 | 0.001 | true | 0.913043 | 1.138960 | 502.5 | 10 | 42 | DONE |
+| E5-LR2 | 0.003 | true | 0.955163 | 0.311232 | 538.6 | 10 | 42 | DONE, tái dùng E4 seed42 |
+| E5-LR3 | 0.01 | true | 0.956522 | 0.158747 | 498.8 | 10 | 42 | DONE |
 | E5-LR4 | 0.03 | true | | | | | 42 | PENDING, tùy chọn |
-| E5-AUG | 0.003 | false | | | | | 42 | PENDING |
+| E5-AUG | 0.003 | false | 0.959239 | 0.265462 | 433.4 | 10 | 42 | DONE |
 
-Thời gian là tổng epoch_time_s trong log (đã làm tròn), không gồm download/setup.
-Accuracy là tỷ lệ 0–1. Không dùng trung bình 3 seed hoặc tập test để chọn siêu tham số.
+Accuracy là tỷ lệ 0–1; ví dụ E3 = 94.9728%. Thời gian là tổng epoch_time_s đã làm tròn trong log,
+không gồm tải dữ liệu, pretrained weights, cài dependency hoặc backup.
+Giữ nguyên batch64, SGD/momentum0.9, seed42, warmup/cosine, AMP và mọi điều kiện khác của E4.
+Tập test không được dùng để lựa chọn siêu tham số. Không dùng trung bình ba seed làm baseline E5.
 
-## 5. Demo
+Trong seed42 này, LR0.01 đạt 704/736 ảnh validation đúng so với 703/736 của LR0.003.
+Tắt augmentation đạt 706/736. Đây là quan sát một seed, không phải kết luận về độ ổn định nhiều seed.
+Biểu đồ và bảng tái tạo bằng `python -m src.ky_experiments --summarize`.
 
-BLOCKED: `waiting for E4 checkpoint`. Chi tiết ở `docs/KY_DEMO_CHECKPOINT_STATUS.md`.
-Không sửa giao diện demo. Checkpoint cá nhân hiện có không phải E4 của nhóm.
-Release `v1.0.0` trả HTTP 404; giao diện GitHub cũng hiển thị chưa có release.
-Shared trainer lưu raw state_dict, demo đòi bundle metadata/classes/model: ghi nhận lỗi giao tiếp,
-không sửa trainer dùng chung. CLI: `python app/app.py --checkpoint <E4-bundle.pt> --device cpu --port 7860`.
+## 5. Trạng thái demo
 
-## 6. 8 hình và 3 bảng
+BLOCKED: **waiting for E4 checkpoint**.
+`app/app.py` hiện đã có CPU inference, Top-5/37 lớp, softmax score và kiểm tra ảnh không hợp lệ;
+không thay đổi giao diện hoặc kiến trúc demo.
 
-Tất cả BLOCKED do thiếu caption/đề cương: hình 1.1, 2.1, 2.2, 2.3, 3.4, 3.6, 3.10, 3.11;
-bảng 2-3, 3-9, 3-12. Theo dõi từng mục ở `report/KY_FIGURE_TABLE_STATUS.md`.
-Không tự gán tên hình hoặc dùng kích thước crop 224 thay cho thống kê ảnh gốc EDA.
+Release `v1.0.0` được README nhắc tới trả HTTP404; GitHub hiện chưa có release.
+Checkpoint cá nhân trong Downloads có recipe 15 epoch/batch16, không phải E4 của nhóm, nên không thay thế.
+Shared trainer lưu raw state_dict còn app yêu cầu bundle `architecture/classes/model`.
+Đã báo cáo điểm không tương thích, không sửa trainer dùng chung. Khi có checkpoint E4 và class ordering,
+có thể sửa riêng loader demo hoặc đóng gói trọng số có sẵn, không cần huấn luyện lại.
+Chi tiết: `docs/KY_DEMO_CHECKPOINT_STATUS.md`.
+CLI: `python app/app.py --checkpoint <verified-E4-bundle.pt> --device cpu --port 7860`.
 
-## 7. Kiểm thử và bảo vệ phạm vi
+## 6. Trạng thái 8 hình và 3 bảng
 
-- DONE: baseline pytest 23 passed; sau bổ sung test Kỳ: 31 passed.
-- DONE: E3 fake-data end-to-end 1 epoch, CPU; checkpoint giả chỉ dùng smoke và không commit.
-- DONE: Ruff chỉ trên 2 file Python mới, nbformat schema và AST notebook.
-- DONE: kiểm tra split 2944/736, nhãn 37 lớp, train/val không trùng; split không chỉnh sửa.
-- DONE: E4 seed42 config/log/metrics khớp, best epoch theo minimum validation loss.
-- DONE: không sửa src/train.py, engine.py, optim.py, data.py, models/factory.py,
-  README chính, workflow, E1/E2/E4 hoặc sản phẩm thành viên khác.
-- DONE: main và origin/main giữ commit gốc `4d5721bc486dc76930ee49fb07bb8be1917f09e6`.
+Tất cả BLOCKED do thiếu caption/đề cương chính xác:
 
-## 8. Lỗi/giới hạn còn tồn tại
+| Loại | Các số được giao | Đầu vào còn thiếu |
+|---|---|---|
+| Hình | 1.1, 2.1, 2.2, 2.3, 3.4, 3.6, 3.10, 3.11 | Tên/nội dung từ đề cương và bằng chứng tương ứng |
+| Bảng | 2-3 | Caption và thống kê kích thước ảnh gốc trong notebook EDA |
+| Bảng | 3-9, 3-12 | Tên/nội dung và dữ liệu theo đề cương |
 
-- FAILED: Git credential helper trong terminal không chạy được; thiếu xác thực để push.
-- FAILED: connector GitHub tạo branch/blob trả 403 Resource not accessible by integration.
-  Browser GitHub đã đăng nhập và tạo được branch riêng; chưa publish file.
-- BLOCKED: chưa có checkpoint E4 và đề cương/EDA notebook gốc.
-- Python tải vào Downloads bị Windows Application Control chặn; dùng interpreter đóng gói sẵn,
-  dependency/cache/temp đặt trong Downloads. Không đổi cấu hình bảo mật Windows.
-- Notebook 07/08 chưa Restart & Run all trên Colab; phiên execution riêng dùng cùng config/runner,
-  điều này không được tính là đã xác minh đầy đủ hai notebook.
+Theo dõi từng mục trong `report/KY_FIGURE_TABLE_STATUS.md`.
+Không tự gán biểu đồ E3/E5 vào số hình/bảng chưa xác định; không sửa sản phẩm Trinh/Tâm.
 
-## 9. Commit và PR
+## 7. Kiểm thử và xác minh đã chạy
 
-Branch: https://github.com/duyenphung206-sudo/vit-oxford-pets/tree/ky/e3-e5-demo-report
-Commit nội dung: PENDING. Pull Request URL: PENDING; chưa có PR, chưa merge.
-Phiên Colab: https://colab.research.google.com/drive/1JbJbd3SKr8L5k-shFy0w7M5VWdU_8GEk
+- DONE: `python -m pytest` — 31 passed sau nhập artifact và output notebook thật.
+- DONE: `ruff check src tests` — pass toàn bộ. Notebook 07/08: nbformat schema và AST pass.
+- DONE: Colab sau restart kernel: notebook07 có 8 code cell pass, notebook08 có 9 code cell pass.
+  Các code cell được exec tuần tự trong namespace riêng; lượt train thật có đủ evidence được tái sử dụng.
+  Callback tải ZIP được chuyển thành lưu ZIP lên Drive đã được cho phép; không tự tải ra thư mục ngoài Downloads.
+- DONE: E3 fake-data end-to-end 1 epoch trên CPU; không có real CPU training.
+- DONE: train/val/test 2944/736/3669, ID không trùng, nhãn khớp annotation và SHA256 khớp metadata.
+- DONE: không thay đổi split/seed; kiểm tra config E3/E5 chỉ khác các điều kiện được giao.
+- DONE: best_epoch/accuracy/loss/time trong metrics khớp log và config; không có fake_data trong run thật.
+- DONE: kiểm tra file stage, dung lượng, pattern token và không có checkpoint trong commit.
+- DONE: CI của PR cho commit chuẩn bị d997f28 thành công (lint và pytest).
 
-## 10. Thao tác cần người dùng
+Bằng chứng: `docs/KY_PIPELINE_VERIFICATION.json`, `docs/KY_NOTEBOOK_VERIFICATION.json`,
+`docs/KY_COLAB_RUN_MANIFEST.json`, cùng log/config/metrics của từng run.
 
-- Cung cấp checkpoint E4 đúng và thứ tự 37 lớp từ nhóm trưởng.
-- Cung cấp đề cương chứa tên/nội dung 8 hình + 3 bảng, notebook EDA cho bảng 2-3.
-- Hoàn tất xác thực Git cục bộ nếu cần để push branch đã review; không push main.
-- Duyên review PR, quyết định merge. Không tự merge.
-- Giữ phiên Colab trong lúc train; checkpoint không được đưa vào Git.
+## 8. Lỗi và giới hạn còn tồn tại
+
+- BLOCKED: checkpoint E4 của nhóm và đề cương/EDA gốc chưa được cung cấp.
+- PENDING: E5-LR4 tùy chọn; các thí nghiệm mới chỉ có seed42 đúng yêu cầu.
+- FAILED (công cụ, đã có phương án thay thế): connector GitHub trả403 khi ghi;
+  Git credential helper/Windows credential vault từ môi trường agent bị từ chối truy cập.
+  Người dùng push bằng terminal đã đăng nhập; PR được tạo qua phiên GitHub đã đăng nhập.
+- FAILED (công cụ, đã thay thế): Python tải vào Downloads bị Application Control chặn.
+  Dùng interpreter đóng gói sẵn, dependency/cache/temp cục bộ trong Downloads; không đổi bảo mật Windows.
+- Môi trường Colab/Drive ở máy chủ từ xa theo ngoại lệ đã được người dùng cho phép.
+  Mọi bản sao kết quả và mã nguồn ghi trên máy cá nhân nằm trong Downloads.
+- Code tạo chart chỉ được chỉnh thêm khoảng trống trục loss sau thí nghiệm để marker không bị cắt;
+  code chạy thí nghiệm có SHA256 gốc được lưu trong manifest và có tại commit d997f28.
+
+## 9. Commit và Pull Request
+
+- Chuẩn bị code: `d997f285f55280063e0a55a22a8ce0339d4e958e`.
+- Kết quả T4 và evidence: `c32f46924bbad27c43e3520436d593d9135b7c03`.
+- Branch: https://github.com/duyenphung206-sudo/vit-oxford-pets/tree/ky/e3-e5-demo-report
+- PR: https://github.com/duyenphung206-sudo/vit-oxford-pets/pull/31
+- Review: Duyên. Không tự merge; main và mọi mã dùng chung/E1/E2/E4 không bị agent chỉnh sửa.
+- Colab execution record: https://colab.research.google.com/drive/1JbJbd3SKr8L5k-shFy0w7M5VWdU_8GEk
+
+## 10. Thao tác người dùng
+
+- Khi đồng bộ commit mới từ terminal trong checkout: `git push -u origin ky/e3-e5-demo-report`.
+  PR31 tự cập nhật; không push main và không dùng force push.
+- Cung cấp checkpoint E4 đúng của nhóm và thứ tự37 lớp để hoàn tất demo.
+- Cung cấp đề cương tên/nội dung8 hình +3 bảng, notebook EDA chứa kích thước ảnh gốc.
+- Duyên review và quyết định merge.
+
+Checkpoint đã bảo toàn ở `MyDrive/vit-oxford-pets-ky/checkpoints/<experiment>/seed42/best.pt`;
+SHA256 và kích thước của cả4 file có trong manifest. Không đưa các file này vào Git.
