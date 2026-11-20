@@ -1,7 +1,7 @@
-# Phiên bản tối thiểu. Khi môi trường chung đã chốt (nhiệm vụ T08),
-# nhóm trưởng thay bằng phiên bản chính xác: chạy `pip freeze | grep -E "torch|numpy|..."` trên Colab.
-torch>=2.2
-torchvision>=0.17
+# Minimum versions. After the shared Colab environment is fixed (task T08), replace each line
+# with the exact version printed by the last cell of notebooks/00_setup_check.ipynb.
+torch>=2.3
+torchvision>=0.18
 numpy
 pandas
 matplotlib
