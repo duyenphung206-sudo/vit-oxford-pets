@@ -1,5 +1,6 @@
 """Official test split; stratified train/val split persisted by image identifier."""
 import hashlib
+import random
 from pathlib import Path
 
 import numpy as np
@@ -11,7 +12,6 @@ from torchvision import transforms as T
 from torchvision.datasets import OxfordIIITPet
 from torchvision.models import ViT_B_16_Weights
 
-import random
 
 def seed_worker(worker_id):
     seed = torch.initial_seed() % (2**32)
