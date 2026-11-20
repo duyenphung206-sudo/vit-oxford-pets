@@ -1,0 +1,5 @@
+base: base.yaml
+experiment: e4_vit_full_ft
+
+model:
+  strategy: full
