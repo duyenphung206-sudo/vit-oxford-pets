@@ -1,0 +1,15 @@
+{
+  "seed": 42,
+  "val_fraction": 0.2,
+  "sizes": {
+    "train": 2944,
+    "val": 736,
+    "test": 3669
+  },
+  "source_sha256": "ec97ebf8b5525e74b3df86d51cbb4d388a78993602a7fb6a910adb7a537c6b6a",
+  "annotation_sha256": {
+    "trainval": "408f3f609481b939c94634169e6413414b733a3faeba440cbdcc5c02142eebdc",
+    "test": "a5454003774ffe01f4f322756d3ba5495bae21cb30bb217ab285dbfa2bef245c"
+  },
+  "source_split_exact_match": true
+}

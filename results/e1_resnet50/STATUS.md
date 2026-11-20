@@ -1,0 +1,2 @@
+# T25 — PENDING TRAINING
+Không tìm thấy baseline ResNet-50 hoặc metrics/log tương ứng trong project nguồn. Chỉ có ViT-B/16. Config là đề xuất chưa được pipeline TV1 chấp thuận; không có script train của nhóm trên main. Không sử dụng checkpoint ViT như ResNet. Máy kiểm tra không có CUDA. Chưa train, chưa có checkpoint/metrics, chưa thể so sánh baseline. Cần nối config vào pipeline TV1, xác nhận cùng split và đánh giá top-1/top-5, macro precision/recall/F1/confusion matrix trước khi báo hoàn tất.
