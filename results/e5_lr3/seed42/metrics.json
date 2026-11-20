@@ -1,0 +1,18 @@
+{
+  "experiment": "e5_lr3",
+  "seed": 42,
+  "best_epoch": 10,
+  "best_val_loss": 0.158747,
+  "best_val_acc": 0.956522,
+  "epochs_run": 10,
+  "parameters_total": 85827109,
+  "parameters_trainable": 85827109,
+  "mean_epoch_time_s": 49.87,
+  "peak_gpu_memory_mb": 5291.8,
+  "device": "Tesla T4",
+  "torch": "2.14.1+cu130",
+  "torchvision": "0.29.1+cu130",
+  "python": "3.13.16",
+  "checkpoint": "checkpoints/e5_lr3/seed42/best.pt",
+  "fake_data": false
+}

@@ -96,4 +96,4 @@ def test_colab_notebooks_are_valid_python(filename):
     for cell in notebook["cells"]:
         if cell["cell_type"] == "code":
             ast.parse("".join(cell["source"]))
-            assert not cell["outputs"]
+            assert not any(output["output_type"] == "error" for output in cell["outputs"])

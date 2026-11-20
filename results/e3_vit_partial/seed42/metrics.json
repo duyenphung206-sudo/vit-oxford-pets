@@ -1,0 +1,18 @@
+{
+  "experiment": "e3_vit_partial",
+  "seed": 42,
+  "best_epoch": 10,
+  "best_val_loss": 0.237091,
+  "best_val_acc": 0.949728,
+  "epochs_run": 10,
+  "parameters_total": 85827109,
+  "parameters_trainable": 28381477,
+  "mean_epoch_time_s": 44.43,
+  "peak_gpu_memory_mb": 2140.6,
+  "device": "Tesla T4",
+  "torch": "2.14.1+cu130",
+  "torchvision": "0.29.1+cu130",
+  "python": "3.13.16",
+  "checkpoint": "checkpoints/e3_vit_partial/seed42/best.pt",
+  "fake_data": false
+}

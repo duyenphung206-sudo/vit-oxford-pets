@@ -1,0 +1,62 @@
+{
+  "status": "DONE",
+  "scope": "E3/E5 data integrity and synthetic pipeline only; no new real training metrics",
+  "source_commit": "4d5721bc486dc76930ee49fb07bb8be1917f09e6",
+  "counts": {
+    "train": 2944,
+    "val": 736,
+    "test": 3669
+  },
+  "pairwise_disjoint": true,
+  "labels_match_official_annotations": true,
+  "annotation_sha256": {
+    "trainval": "408f3f609481b939c94634169e6413414b733a3faeba440cbdcc5c02142eebdc",
+    "test": "a5454003774ffe01f4f322756d3ba5495bae21cb30bb217ab285dbfa2bef245c"
+  },
+  "batch_checks": {
+    "train": {
+      "image_shape": [
+        2,
+        3,
+        224,
+        224
+      ],
+      "label_range": [
+        6,
+        8
+      ]
+    },
+    "val": {
+      "image_shape": [
+        2,
+        3,
+        224,
+        224
+      ],
+      "label_range": [
+        1,
+        29
+      ]
+    },
+    "test": {
+      "image_shape": [
+        2,
+        3,
+        224,
+        224
+      ],
+      "label_range": [
+        0,
+        0
+      ]
+    }
+  },
+  "e3_smoke": {
+    "fake_data": true,
+    "epochs_run": 1,
+    "parameters_total": 85827109,
+    "parameters_trainable": 28381477,
+    "checkpoint_created": true
+  },
+  "protected_tracked_files_changed": []
+}

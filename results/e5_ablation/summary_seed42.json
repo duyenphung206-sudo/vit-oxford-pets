@@ -3,14 +3,14 @@
     "id": "E5-LR1",
     "learning_rate": 0.001,
     "augmentation": true,
-    "status": "PENDING",
-    "val_accuracy": null,
-    "val_loss": null,
-    "training_time_s": null,
-    "epochs": null,
+    "status": "DONE",
+    "val_accuracy": 0.913043,
+    "val_loss": 1.13896,
+    "training_time_s": 502.5,
+    "epochs": 10,
     "seed": 42,
     "source": "results/e5_lr1/seed42",
-    "reason": "Awaiting GPU run"
+    "reason": "Repository evidence verified"
   },
   {
     "id": "E5-LR2",
@@ -29,14 +29,14 @@
     "id": "E5-LR3",
     "learning_rate": 0.01,
     "augmentation": true,
-    "status": "PENDING",
-    "val_accuracy": null,
-    "val_loss": null,
-    "training_time_s": null,
-    "epochs": null,
+    "status": "DONE",
+    "val_accuracy": 0.956522,
+    "val_loss": 0.158747,
+    "training_time_s": 498.8,
+    "epochs": 10,
     "seed": 42,
     "source": "results/e5_lr3/seed42",
-    "reason": "Awaiting GPU run"
+    "reason": "Repository evidence verified"
   },
   {
     "id": "E5-LR4",
@@ -55,13 +55,13 @@
     "id": "E5-AUG",
     "learning_rate": 0.003,
     "augmentation": false,
-    "status": "PENDING",
-    "val_accuracy": null,
-    "val_loss": null,
-    "training_time_s": null,
-    "epochs": null,
+    "status": "DONE",
+    "val_accuracy": 0.959239,
+    "val_loss": 0.265462,
+    "training_time_s": 433.4,
+    "epochs": 10,
     "seed": 42,
     "source": "results/e5_aug/seed42",
-    "reason": "Awaiting GPU run"
+    "reason": "Repository evidence verified"
   }
 ]

@@ -148,7 +148,8 @@ def summarize():
             if metric == "val_accuracy":
                 ax.set_ylim(0, 1)
             else:
-                ax.set_ylim(bottom=0)
+                values = [row[metric] for row in selected if row["status"] == "DONE"]
+                ax.set_ylim(0, max(values) * 1.1 if values else 1)
             ax.grid(axis="y", alpha=0.25)
         fig.suptitle("Seed 42; checkpoint selected by validation loss; missing runs have no values")
         fig.tight_layout()
