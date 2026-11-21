@@ -133,13 +133,18 @@ Bằng chứng: `docs/KY_PIPELINE_VERIFICATION.json`, `docs/KY_NOTEBOOK_VERIFICA
 - PR: https://github.com/duyenphung206-sudo/vit-oxford-pets/pull/31
 - PR31 đã được Duyên (`duyenphung206-sudo`) merge thành commit0dbb877 ngày21/11; Duyên xóa branch remote.
 - Agent không merge. `main` cục bộ vẫn4d5721b; `origin/main` mới e7f224f gồm cập nhậtREADME của Duyên.
-- Phần demo/EDA/bootstrap mới chỉ làm trên branchKy; sẽ bàn giao PR tiếp theo, không sửa shared/E1/E2/E4.
+- Phần demo/EDA/bootstrap mới chỉ làm trên branchKy, không sửa shared/E1/E2/E4.
+- Commit bổ sung: `619e4889c288a308449637a11534dc5c4eb1de58`, người dùng đã push và agent đối chiếu remote SHA.
+- PR bổ sung đang mở: https://github.com/duyenphung206-sudo/vit-oxford-pets/pull/33
+- CI PR33 tại commit619e488 đã pass (run44890918835). Nhờ Duyên review; agent không merge.
+- Link Drive người dùng cung cấp mở thư mục `e4_vit_full_ft` chỉ có seed42/43/44,
+  không chứa đề cương/caption. Đã yêu cầu đúng file đề cương.
 - Colab execution record: https://colab.research.google.com/drive/1JbJbd3SKr8L5k-shFy0w7M5VWdU_8GEk
 
 ## 10. Thao tác người dùng
 
 - Khi đồng bộ commit mới từ terminal trong checkout: `git push -u origin ky/e3-e5-demo-report`.
-  PR31 đã merge nên phần bổ sung cần PR mới; không push main và không dùng force push.
+  PR31 đã merge; phần bổ sung nằm ở PR33. Không push main và không dùng force push.
 - Cung cấp đề cương tên/nội dung8 hình +3 bảng. EDA gốc và checkpoint không còn thiếu.
 - Duyên review và quyết định merge.
 
