@@ -40,10 +40,19 @@ All runs: Google Colab, NVIDIA T4 16 GB, batch 64, at most 10 epochs, checkpoint
 |----|-------|----------|-----------------:|-----------------:|---------:|-----------------:|
 | E1 | ResNet-50 | full fine-tuning | 23,583,845 | pending | pending | pending |
 | E2 | ViT-B/16 | feature extraction (linear probe) | 28,453 | pending | pending | pending |
-| E3 | ViT-B/16 | fine-tune last 4 blocks | 28,381,477 | pending | pending | pending |
+| E3 | ViT-B/16 | fine-tune last 4 blocks | 28,381,477 | 94.97 | 0.2371 | 44.4 |
 | E4 | ViT-B/16 | full fine-tuning, seeds 42/43/44 | 85,827,109 | **95.47 ± 0.08** | 0.3097 ± 0.0019 | 55.2 |
 
-E5 (learning rate {0.001, 0.003, 0.01, 0.03} and augmentation on/off) and the test-set evaluation (official `test` split, 3,669 images) are added when the corresponding runs are merged. Each value comes from `results/<experiment>/`.
+E5 changes one factor of the E4 recipe at a time (seed 42):
+
+| Run | Learning rate | Augmentation | Val accuracy (%) | Val loss |
+|-----|--------------:|:------------:|-----------------:|---------:|
+| E5-LR1 | 0.001 | on | 91.30 | 1.1390 |
+| E5-LR2 (= E4 seed 42) | 0.003 | on | 95.52 | 0.3112 |
+| E5-LR3 | 0.01 | on | 95.65 | 0.1587 |
+| E5-AUG | 0.003 | off | 95.92 | 0.2655 |
+
+With 736 validation images one image is 0.14 percentage points and the standard error at 95 % accuracy is about 0.8 points, so differences below about 2 points between single-seed runs are not conclusive. Test-set results (official `test` split, 3,669 images) are added when the evaluation is merged. Each value comes from `results/<experiment>/`.
 
 For context, Dosovitskiy *et al.* report 93.81 % on Oxford-IIIT Pets for ViT-B/16 pretrained on ImageNet and fine-tuned at 384 × 384 with batch 512 ([1], Table 5). Our setting differs (224 × 224, batch 64, `torchvision` weights, validation instead of test), so the numbers are not directly comparable.
 
