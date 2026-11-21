@@ -63,7 +63,7 @@ def main():
     rows = [[label, f"{row.width:.2f}", f"{row.height:.2f}",
              f"{row.aspect_ratio:.4f}"] for label, row in reference.iterrows()]
     markdown = ("# Original image dimensions\n\n"
-                "Evidence for the assigned table 2-3; exact caption pending the team outline.\n\n"
+                "Source statistics for Bảng 2-3. Đặc điểm của 7.349 ảnh có nhãn.\n\n"
                 "| " + " | ".join(headers) + " |\n|---|---:|---:|---:|\n"
                 + "".join("| " + " | ".join(row) + " |\n" for row in rows)
                 + "\n7,349 annotated images, before resize/crop or EXIF transpose. "
@@ -105,7 +105,7 @@ def main():
         "images_measured": len(dimensions), "notebook_output_matches_csv": True,
         "actual_image_headers_match_all_csv_statistics": True,
         "dimensions": "Original width and height, before EXIF transpose or resizing",
-        "caption_status": "BLOCKED: exact caption not supplied",
+        "caption_status": "RESOLVED: Bảng 2-3. Đặc điểm của 7.349 ảnh có nhãn",
     }
     (output / "eda_dimension_provenance.json").write_text(
         json.dumps(evidence, indent=2) + "\n", encoding="utf-8")

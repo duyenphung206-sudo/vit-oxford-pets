@@ -16,13 +16,14 @@ Cập nhật: 2026-11-21 (Asia/Saigon). Branch duy nhất: `ky/e3-e5-demo-report
 - DONE: log.csv, config.yaml, metrics.json, curves.png của năm run mới đã nhập về Downloads và xác minh lại.
 - DONE: bảng CSV/JSON E5 và biểu đồ PNG 300 dpi/SVG, có mã nguồn tái lập.
 - DONE: 5 checkpoint E3/E5 sao lưu Drive (gồm LR4 mới), đối chiếu SHA256 bản sao với bản gốc; không đưa checkpoint vào Git.
-- DONE: kiểm thử cục bộ, lint, schema notebook, kiểm tra split và phạm vi thay đổi.
+- DONE: kiểm thử cục bộ, lint, schema notebook, split và phạm vi; bộ hình/bảng đã render/kiểm tra trực quan.
 - DONE: PR31 đã được Duyên merge; phần bổ sung demo/LR4/EDA vẫn chỉ thực hiện trên branchKy, agent không merge.
 
 ## 2. Nhiệm vụ chưa hoàn thành
 
-E3, toàn bộ E5 và demo CPU đã hoàn tất.
-- BLOCKED: 8 hình và 3 bảng được giao chưa có đề cương/caption; bảng 2-3 đã khôi phục dữ liệu EDA gốc và xuất asset, còn chờ caption.
+Không còn thí nghiệm, demo hoặc asset hình/bảng nào của Kỳ thiếu đầu vào.
+Bộ 8 hình +3 bảng đã hoàn tất theo PDF nguồn. Phần còn lại là Duyên review PR33,
+ghép các asset vào Word chung và quyết định merge; agent không tự sửa tài liệu chung.
 
 ## 3. Kết quả E3
 
@@ -66,33 +67,39 @@ DONE: inference thực và thao tác browser upload cho ảnh chó/mèo trainval
 hiển thị Top-5 và softmax score. `beagle_100`: beagle 0.934672;
 `Abyssinian_100`: Abyssinian 0.520299. Đây là hai ảnh minh họa, không phải số đo accuracy.
 Gửi ảnh rỗng báo `Upload a valid image`. Bằng chứng: `docs/KY_DEMO_VERIFICATION.json`.
-CLI: `python app/app.py --checkpoint <vit_b16_e4_seed44_best.pt> --device cpu --port 7860`.
+CLI Top-5 giữ tương thích. Để có giao diện đúng hình3.10/3.11:
+`python app/app.py --checkpoint <vit_b16_e4_seed44_best.pt> --device cpu --port 7861 --attention`.
+Attention rollout đủ12 khối, Q/K từLayerNorm1, residual,14×14patch bilinear224×224.
+Suy luận gốc không đổi và hook được gỡ sau forward. Ảnh test minh họa được chọn trước suy luận:
+Abyssinian_201, Top-1Abyssinian, softmax0.394977; không đánh giá toàn tập test hoặc dùng test chọn siêu tham số.
+Nguồn: `docs/KY_ATTENTION_VERIFICATION.json`.
 
 ## 6. Trạng thái 8 hình và 3 bảng
 
-Tất cả BLOCKED do thiếu caption/đề cương chính xác:
+DONE toàn bộ theo caption/bố cục trong PDF nhóm người dùng cung cấp (46 trang):
 
-| Loại | Các số được giao | Đầu vào còn thiếu |
-|---|---|---|
-| Hình | 1.1, 2.1, 2.2, 2.3, 3.4, 3.6, 3.10, 3.11 | Tên/nội dung từ đề cương và bằng chứng tương ứng |
-| Bảng | 2-3 | Chỉ còn caption chính xác; thống kê EDA đã khôi phục và kiểm chứng |
-| Bảng | 3-9, 3-12 | Tên/nội dung và dữ liệu theo đề cương |
+- Hình1.1: sáu cặp giống, lưới2×6, ảnh đúng tập train, tên giống đúng thứ tự.
+- Hình2.1: số ảnh trainval37 lớp giảm dần, màu mèo/chó, mốc100, nhãn xoay90°.
+- Hình2.2: histogram r rộng0.05, mốc0.95/1.05 và scatter kích thước gốc7.349 ảnh.
+- Hình2.3: một ảnh train, ô đánh giá +4 mẫu tăng cường, seed42 và ID ảnh.
+- Hình3.4: E3 curves xuất bằng plot_curves; hình3.6: log-LR,4 điểm nối và điểm tam giác no-aug.
+- Hình3.10/3.11: screenshot trình duyệt thật giao diện trống/kết quả Top-5+attention E4 seed44 CPU.
+- Bảng2-3: mode/hướng ảnh và min/max/mean từ EDA gốc, đối chiếu lại7.349 ảnh.
+- Bảng3-9: kết quả E3; bảng3-12: đủ5 dòng E5 từ metrics thật, E4seed42 chỉ tái dùng.
 
-Theo dõi từng mục trong `report/KY_FIGURE_TABLE_STATUS.md`.
-Đã khôi phục EDA của Kỳ từ PR11, commit a03bad2; output notebook khớp CSV.
-Đo độc lập lại header toàn bộ7.349 ảnh gốc và đối chiếu mọi thống kê: khớp.
-Asset PNG300dpi/SVG/CSV/Markdown và provenance nằm ở `report/ky_assets/`;
-nguồn tái lập: `report/ky_prepare_dimensions.py`. Chưa gán caption/số cho asset.
-Không tự gán biểu đồ E3/E5 vào số hình/bảng chưa xác định; không sửa sản phẩm Trinh/Tâm.
+Danh mục đầy đủ, caption, tệp, trang PDF nguồn và nội dung điền số:
+`report/KY_FIGURE_TABLE_STATUS.md`. Bộ duyệt riêng11 trang: `report/KY_REPORT_FIGURES_TABLES.pdf`.
+Nguồn tái lập: `report/ky_build_report_assets.py`, `report/ky_package_report.py`.
+Không sửa PDF/Word nhóm; không sửa hình3.7–3.9 hoặc nội dung của Trinh/Tâm.
+Bảng3-9 sửa nhãn đơn vị trong asset riêng thànhMiB vì2140.6 trong log làMiB;
+quy đổi SI tương ứng2244.58MB nếu nhóm giữ cộtMB. Không đổi trainer hoặc log.
 
-LR4 bổ sung ngày21/11: 700/736 ảnh validation đúng, 10epoch, mean45.94s/epoch,
-PyTorch peak5291.8MiB; SHA checkpoint `f69652487f33185062187e48a623fb3315ce41c2f01abff510984784344d6bbb`.
-Chạy từ mã đã merge0dbb877; log/config/metrics nhập về theo whitelist và xác minhSHA ZIP.
-Bản sao checkpoint trên Drive khớp SHA bản gốc. Evidence riêng: `docs/KY_LR4_RUN_MANIFEST.json`.
+LR4: 700/736 ảnh validation đúng,10epoch,mean45.94s/epoch,peak5291.8MiB.
+Evidence riêng: `docs/KY_LR4_RUN_MANIFEST.json`.
 
 ## 7. Kiểm thử và xác minh đã chạy
 
-- DONE: `python -m pytest` — 36 passed, gồm 5 kiểm tra demo mới; xác nhận lại sau định dạng code cũng pass36/36.
+- DONE: `python -m pytest` — 38 passed sau bổ sung attention; gồm kiểm tra tái dựng Q/K khớp attention PyTorch và thứ tự tích rollout.
 - DONE: `ruff check src tests` — pass toàn bộ. Notebook 07/08: nbformat schema và AST pass.
 - DONE: Colab sau restart kernel: notebook07 có 8 code cell pass, notebook08 có 9 code cell pass.
   Các code cell được exec tuần tự trong namespace riêng; lượt train thật có đủ evidence được tái sử dụng.
@@ -113,7 +120,7 @@ Bằng chứng: `docs/KY_PIPELINE_VERIFICATION.json`, `docs/KY_NOTEBOOK_VERIFICA
 
 ## 8. Lỗi và giới hạn còn tồn tại
 
-- BLOCKED: chỉ còn đề cương/caption chính xác của8 hình và3 bảng; checkpoint và EDA đã có.
+- DONE: PDF nguồn đã cung cấp và đối chiếu đủ11 caption. Không còn blocker dữ liệu/quyền cho asset của Kỳ.
 - DONE: E5-LR4 tùy chọn; các thí nghiệm mới chỉ có seed42 đúng yêu cầu.
 - FAILED (công cụ, đã có phương án thay thế): connector GitHub trả403 khi ghi;
   Git credential helper/Windows credential vault từ môi trường agent bị từ chối truy cập.
@@ -138,14 +145,14 @@ Bằng chứng: `docs/KY_PIPELINE_VERIFICATION.json`, `docs/KY_NOTEBOOK_VERIFICA
 - PR bổ sung đang mở: https://github.com/duyenphung206-sudo/vit-oxford-pets/pull/33
 - CI PR33 tại commit619e488 đã pass (run44890918835). Nhờ Duyên review; agent không merge.
 - Link Drive người dùng cung cấp mở thư mục `e4_vit_full_ft` chỉ có seed42/43/44,
-  không chứa đề cương/caption. Đã yêu cầu đúng file đề cương.
+  không chứa đề cương/caption. Sau đó người dùng đã cung cấp PDF đúng; blocker này đã giải quyết.
 - Colab execution record: https://colab.research.google.com/drive/1JbJbd3SKr8L5k-shFy0w7M5VWdU_8GEk
 
 ## 10. Thao tác người dùng
 
 - Khi đồng bộ commit mới từ terminal trong checkout: `git push -u origin ky/e3-e5-demo-report`.
   PR31 đã merge; phần bổ sung nằm ở PR33. Không push main và không dùng force push.
-- Cung cấp đề cương tên/nội dung8 hình +3 bảng. EDA gốc và checkpoint không còn thiếu.
+- Duyên duyệt và ghép bộ11 asset vào Word chung; cập nhật danh mục hình/bảng sau khi chèn.
 - Duyên review và quyết định merge.
 
 Checkpoint đã bảo toàn ở `MyDrive/vit-oxford-pets-ky/checkpoints/<experiment>/seed42/best.pt`;

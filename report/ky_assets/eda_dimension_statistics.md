@@ -1,6 +1,6 @@
 # Original image dimensions
 
-Evidence for the assigned table 2-3; exact caption pending the team outline.
+Source statistics for Bảng 2-3. Đặc điểm của 7.349 ảnh có nhãn.
 
 | Statistic | Width (px) | Height (px) | Width / height |
 |---|---:|---:|---:|

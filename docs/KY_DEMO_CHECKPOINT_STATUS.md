@@ -23,7 +23,12 @@ Empty input displays `Upload a valid image`. These two illustrations are not an
 accuracy estimate. No test-set evaluation or model selection was performed.
 
 Evidence: `docs/KY_DEMO_VERIFICATION.json`; regression checks: `tests/test_ky_demo.py`.
-The existing attention-map placeholder remains outside the requested Top-5 demo scope.
+After the user supplied the exact report PDF, figure3.11 required attention.
+An optional `--attention` mode now adds real attention rollout while retaining the original
+Top-5 default. Q/K are reconstructed from LayerNorm1 and existing projections; the model
+forward and shared code remain unchanged. See `docs/KY_ATTENTION_VERIFICATION.json`.
+Browser screenshots for figures3.10/3.11 use the first official test annotation, selected
+before inference, as a single illustration; no aggregate test evaluation/tuning was done.
 
 Run from repository root after downloading the verified release asset:
 
@@ -32,3 +37,5 @@ python app/app.py --checkpoint <path-to-vit_b16_e4_seed44_best.pt> --device cpu 
 ```
 
 Open http://127.0.0.1:7860. Checkpoint binaries are ignored and must not be committed.
+
+Report mode: append `--attention` to the CLI (the verified live instance uses port7861).

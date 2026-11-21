@@ -1,0 +1,30 @@
+{
+  "image_id": "Abyssinian_201",
+  "selection": "First official test annotation, fixed before inference; a single illustration, no aggregate test evaluation/tuning",
+  "true_label": "Abyssinian",
+  "image_sha256": "af5e24d564321c9233c06c02497c08bf164a9a72acf8e8e287ac1bfc6f9cd321",
+  "checkpoint_sha256": "525435b0b0338e379fad8238906687a636c4a8ca4bf39539d67f2b1901d9ec77",
+  "device": "cpu",
+  "top5": {
+    "Abyssinian": 0.39497676491737366,
+    "Bengal": 0.2953816056251526,
+    "Egyptian_Mau": 0.10907381772994995,
+    "Russian_Blue": 0.0667470321059227,
+    "Maine_Coon": 0.03236139938235283
+  },
+  "rollout": {
+    "layers": 12,
+    "grid": [
+      14,
+      14
+    ],
+    "row_sum_max_error": 1.1920928955078125e-07,
+    "patch_min": 0.0033512001391500235,
+    "patch_max": 0.00709539232775569
+  },
+  "native_predictions_unchanged": true,
+  "hooks_removed": true,
+  "method": "Mean 12 heads from Q/K projections of LayerNorm1 output; (A+I)/2; R=A12...A1; CLS-to-196 patches, 14x14, bilinear to224, minmax normalization; overlay55% image/45% jet",
+  "reference": "https://aclanthology.org/2020.acl-main.385/",
+  "scope": "Demo only; does not modify Tam attention analysis or figures3.7-3.9"
+}
