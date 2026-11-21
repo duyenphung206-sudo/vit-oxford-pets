@@ -1,0 +1,31 @@
+{
+  "source_sha256": "c56b038bdf1b21dda3f633dfdeab3481b68b1e8af03381c11d62fea6b3758190",
+  "base_commit": "4d5721bc486dc76930ee49fb07bb8be1917f09e6",
+  "gpu": "Tesla T4",
+  "backups": [
+    {
+      "experiment": "E3",
+      "checkpoint_sha256": "edcaed488ae24c8b37e58af482927e95d7693c62a93370f00eacbeb5e1d6394a",
+      "size_bytes": 343359029,
+      "drive_path": "/content/drive/MyDrive/vit-oxford-pets-ky/checkpoints/e3_vit_partial/seed42/best.pt"
+    },
+    {
+      "experiment": "E5-LR1",
+      "checkpoint_sha256": "31124d0a3c7c23729159055b5e9229a44c319e434cff5d9114d27e75d4048f07",
+      "size_bytes": 343359029,
+      "drive_path": "/content/drive/MyDrive/vit-oxford-pets-ky/checkpoints/e5_lr1/seed42/best.pt"
+    },
+    {
+      "experiment": "E5-LR3",
+      "checkpoint_sha256": "230c6c4b041dad5885174852a4107d5e98c33d2870e77e38094c38a8553cf4ac",
+      "size_bytes": 343359029,
+      "drive_path": "/content/drive/MyDrive/vit-oxford-pets-ky/checkpoints/e5_lr3/seed42/best.pt"
+    },
+    {
+      "experiment": "E5-AUG",
+      "checkpoint_sha256": "eb2613448f333c9631448615cfd0898af6e6ac5f1423a6e9141270b1dd410d37",
+      "size_bytes": 343359029,
+      "drive_path": "/content/drive/MyDrive/vit-oxford-pets-ky/checkpoints/e5_aug/seed42/best.pt"
+    }
+  ]
+}

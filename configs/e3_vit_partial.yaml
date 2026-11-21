@@ -1,0 +1,5 @@
+base: e4_vit_full_ft.yaml
+experiment: e3_vit_partial
+model:
+  strategy: partial
+  unfreeze_last_k: 4

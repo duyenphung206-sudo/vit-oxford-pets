@@ -1,0 +1,30 @@
+experiment: e5_lr1
+data:
+  root: /content/data
+  splits_dir: data/splits
+  image_size: 224
+  batch_size: 64
+  num_workers: 2
+  augment: true
+model:
+  name: vit_b_16
+  num_classes: 37
+  pretrained: true
+  strategy: full
+  unfreeze_last_k: 0
+optimizer:
+  name: sgd
+  lr: 0.001
+  momentum: 0.9
+  weight_decay: 0.0
+  layer_decay: 1.0
+train:
+  seed: 42
+  epochs: 10
+  patience: 5
+  warmup_epochs: 1
+  min_lr_ratio: 0.0
+  label_smoothing: 0.0
+  max_grad_norm: 1.0
+  amp: true
+  deterministic: false

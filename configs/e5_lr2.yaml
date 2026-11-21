@@ -1,0 +1,2 @@
+# Reference only: reuse the existing E4 seed42 run; never train this alias.
+base: e4_vit_full_ft.yaml

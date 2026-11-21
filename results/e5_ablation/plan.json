@@ -1,34 +1,38 @@
 {
-  "status": "PENDING TRAINING",
-  "base_config": "best group ViT configuration: not available yet",
+  "status": "DONE REQUIRED SEED42 RUNS; OPTIONAL E5-LR4 PENDING",
+  "supersedes": "Earlier provisional AdamW-style LR grid; user-approved E4 SGD protocol now applies",
+  "base_config": "configs/e4_vit_full_ft.yaml",
   "seed": 42,
+  "selection": "minimum validation loss",
   "split_dir": "data/splits",
-  "selection": "validation accuracy only",
   "planned_runs": [
     {
-      "learning_rate": 1e-05,
+      "id": "E5-LR1",
+      "learning_rate": 0.001,
       "augmentation": true
     },
     {
-      "learning_rate": 1e-05,
-      "augmentation": false
+      "id": "E5-LR2",
+      "learning_rate": 0.003,
+      "augmentation": true,
+      "reuse": "results/e4_vit_full_ft/seed42"
     },
     {
-      "learning_rate": 3e-05,
+      "id": "E5-LR3",
+      "learning_rate": 0.01,
       "augmentation": true
     },
     {
-      "learning_rate": 3e-05,
-      "augmentation": false
+      "id": "E5-LR4",
+      "learning_rate": 0.03,
+      "augmentation": true,
+      "optional": true
     },
     {
-      "learning_rate": 0.0001,
-      "augmentation": true
-    },
-    {
-      "learning_rate": 0.0001,
+      "id": "E5-AUG",
+      "learning_rate": 0.003,
       "augmentation": false
     }
   ],
-  "results": []
+  "results_source": "summary_seed42.json"
 }

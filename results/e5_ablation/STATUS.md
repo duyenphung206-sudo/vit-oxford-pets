@@ -1,2 +1,12 @@
-# T30 — PENDING TRAINING
-Chưa có ablation thật; một run ViT cá nhân không phải sáu thí nghiệm. plan.json là thiết kế sáu run (3 LR × augmentation on/off), không phải kết quả. Chưa có cấu hình tốt nhất của nhóm hoặc training API của TV1 nên không tạo script gọi interface giả định. Giữ mọi tham số khác cố định, dùng chung split, chọn bằng val, không dùng test để chọn LR. Bảng validation accuracy chỉ lập sau khi từng run có log kiểm chứng; results hiện rỗng.
+# E5 — Nguyễn Ngọc Kỳ
+
+DONE: required seed42 runs E5-LR1, E5-LR3 and E5-AUG on Tesla T4; verified config/log/metrics.
+DONE: E5-LR2 reuses the committed E4 seed42 evidence. E4 was not rerun or modified.
+DONE: summary_seed42.csv/json, PNG/SVG comparisons and SHA256-verified Drive checkpoint backups.
+PENDING (optional): E5-LR4, LR=0.03, augmentation on. No value is imputed.
+
+The current plan supersedes the earlier provisional LR grid in this directory.
+Checkpoint selection follows minimum validation loss, not maximum validation accuracy.
+Accuracy is a 0–1 fraction. Training time is the sum of rounded epoch_time_s values, excluding setup/download.
+Only seed42 is compared; no multi-seed stability claim is made. Test was not used for tuning.
+Regenerate: `python -m src.ky_experiments --summarize`.
