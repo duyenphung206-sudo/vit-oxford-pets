@@ -1,17 +1,20 @@
-# Proposal only: requires TV1 training/evaluation pipeline integration.
+base: base.yaml
 experiment: e1_resnet50
-model: resnet50
-weights: IMAGENET1K_V1
-num_classes: 37
-strategy: full_finetune
-seed: 42
-split_dir: data/splits
-data_dir: data
-batch_size: 16
-epochs: 15
-optimizer: AdamW
-learning_rate: 0.00003
-weight_decay: 0.05
-augmentation: true
-selection_metric: val_accuracy
-output_dir: results/e1_resnet50/seed42
+
+# E1 - Baseline CNN: Full fine-tuning ResNet-50 pretrained ImageNet-1K tren cung split 80/20 (seed 42)
+# Sai khac duy nhat so voi base.yaml (ViT-B/16):
+#   - model.name: resnet50 (23,583,845 tham so cho 37 lop)
+#   - optimizer.lr: 0.01 va weight_decay: 0.0001 (chuan fine-tune CNN/ResNet-50 voi SGD + cosine decay)
+model:
+  name: resnet50
+  num_classes: 37
+  pretrained: true
+  strategy: full
+  unfreeze_last_k: 0
+
+optimizer:
+  name: sgd
+  lr: 0.01
+  momentum: 0.9
+  weight_decay: 0.0001
+  layer_decay: 1.0
