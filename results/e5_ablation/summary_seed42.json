@@ -42,14 +42,14 @@
     "id": "E5-LR4",
     "learning_rate": 0.03,
     "augmentation": true,
-    "status": "PENDING",
-    "val_accuracy": null,
-    "val_loss": null,
-    "training_time_s": null,
-    "epochs": null,
+    "status": "DONE",
+    "val_accuracy": 0.951087,
+    "val_loss": 0.148726,
+    "training_time_s": 459.5,
+    "epochs": 10,
     "seed": 42,
     "source": "results/e5_lr4/seed42",
-    "reason": "Awaiting GPU run"
+    "reason": "Repository evidence verified"
   },
   {
     "id": "E5-AUG",

@@ -8,22 +8,22 @@ Cập nhật: 2026-11-21 (Asia/Saigon). Branch duy nhất: `ky/e3-e5-demo-report
 ## 1. Nhiệm vụ hoàn thành
 
 - DONE: config E3 partial và 5 config tham chiếu/ablation E5, kế thừa E4 đúng parser của repository.
-- DONE: E3, E5-LR1, E5-LR3, E5-AUG chạy thật trên Google Colab Tesla T4, seed42, 10 epoch mỗi run.
+- DONE: E3, E5-LR1, E5-LR3, E5-LR4, E5-AUG chạy thật trên Google Colab Tesla T4, seed42, 10 epoch mỗi run.
 - DONE: E5-LR2 tái sử dụng đúng E4 seed42, đối chiếu config/log/metrics, không chạy lại E4.
 - DONE: head + final LayerNorm + 4 encoder blocks cuối trainable; 28,381,477 / 85,827,109 tham số.
 - DONE: notebook 07/08 thực thi đủ 8/9 code cell sau một lần restart kernel T4,
   trong namespace riêng, tái sử dụng run đã hoàn tất. Output thực được lưu trong notebook.
-- DONE: log.csv, config.yaml, metrics.json, curves.png của bốn run mới đã nhập về Downloads và xác minh lại.
+- DONE: log.csv, config.yaml, metrics.json, curves.png của năm run mới đã nhập về Downloads và xác minh lại.
 - DONE: bảng CSV/JSON E5 và biểu đồ PNG 300 dpi/SVG, có mã nguồn tái lập.
-- DONE: 4 checkpoint mới sao lưu Drive, đối chiếu SHA256 bản sao với bản gốc; không đưa checkpoint vào Git.
-- DONE: kiểm thử cục bộ, lint, schema notebook, kiểm tra split và phạm vi thay đổi.
-- DONE: branch riêng và PR #31 về main; không merge.
+- DONE: 5 checkpoint E3/E5 sao lưu Drive (gồm LR4 mới), đối chiếu SHA256 bản sao với bản gốc; không đưa checkpoint vào Git.
+- DONE: kiểm thử cục bộ, lint, schema notebook, split và phạm vi; bộ hình/bảng đã render/kiểm tra trực quan.
+- DONE: PR31 đã được Duyên merge; phần bổ sung demo/LR4/EDA vẫn chỉ thực hiện trên branchKy, agent không merge.
 
 ## 2. Nhiệm vụ chưa hoàn thành
 
-- PENDING (tùy chọn): E5-LR4, LR=0.03, augmentation bật. Không tạo số thay thế.
-- BLOCKED: demo dùng checkpoint E4 của nhóm — `waiting for E4 checkpoint`.
-- BLOCKED: 8 hình và 3 bảng được giao chưa có đề cương/caption; bảng 2-3 thiếu notebook EDA gốc.
+Không còn thí nghiệm, demo hoặc asset hình/bảng nào của Kỳ thiếu đầu vào.
+Bộ 8 hình +3 bảng đã hoàn tất theo PDF nguồn. Phần còn lại là Duyên review PR33,
+ghép các asset vào Word chung và quyết định merge; agent không tự sửa tài liệu chung.
 
 ## 3. Kết quả E3
 
@@ -42,7 +42,7 @@ Smoke test dữ liệu giả được lưu riêng trong `Downloads/.ky-tools/` h
 | E5-LR1 | 0.001 | true | 0.913043 | 1.138960 | 502.5 | 10 | 42 | DONE |
 | E5-LR2 | 0.003 | true | 0.955163 | 0.311232 | 538.6 | 10 | 42 | DONE, tái dùng E4 seed42 |
 | E5-LR3 | 0.01 | true | 0.956522 | 0.158747 | 498.8 | 10 | 42 | DONE |
-| E5-LR4 | 0.03 | true | | | | | 42 | PENDING, tùy chọn |
+| E5-LR4 | 0.03 | true | 0.951087 | 0.148726 | 459.5 | 10 | 42 | DONE |
 | E5-AUG | 0.003 | false | 0.959239 | 0.265462 | 433.4 | 10 | 42 | DONE |
 
 Accuracy là tỷ lệ 0–1; ví dụ E3 = 94.9728%. Thời gian là tổng epoch_time_s đã làm tròn trong log,
@@ -56,34 +56,50 @@ Biểu đồ và bảng tái tạo bằng `python -m src.ky_experiments --summar
 
 ## 5. Trạng thái demo
 
-BLOCKED: **waiting for E4 checkpoint**.
-`app/app.py` hiện đã có CPU inference, Top-5/37 lớp, softmax score và kiểm tra ảnh không hợp lệ;
-không thay đổi giao diện hoặc kiến trúc demo.
+DONE: checkpoint E4 seed44 do người dùng cung cấp từ release v0.9.0.
+Tệp 343,359,029 bytes; SHA256 khớp digest của release:
+`525435b0b0338e379fad8238906687a636c4a8ca4bf39539d67f2b1901d9ec77`.
+Đã sửa riêng `app/app.py` để nhận raw state_dict, nạp strict trên CPU và dùng đúng
+37 nhãn từ train.csv; đối chiếu toàn bộ thứ tự với annotation chính thức.
+Không sửa trainer, không thay checkpoint cá nhân, không đổi giao diện.
 
-Release `v1.0.0` được README nhắc tới trả HTTP404; GitHub hiện chưa có release.
-Checkpoint cá nhân trong Downloads có recipe 15 epoch/batch16, không phải E4 của nhóm, nên không thay thế.
-Shared trainer lưu raw state_dict còn app yêu cầu bundle `architecture/classes/model`.
-Đã báo cáo điểm không tương thích, không sửa trainer dùng chung. Khi có checkpoint E4 và class ordering,
-có thể sửa riêng loader demo hoặc đóng gói trọng số có sẵn, không cần huấn luyện lại.
-Chi tiết: `docs/KY_DEMO_CHECKPOINT_STATUS.md`.
-CLI: `python app/app.py --checkpoint <verified-E4-bundle.pt> --device cpu --port 7860`.
+DONE: inference thực và thao tác browser upload cho ảnh chó/mèo trainval,
+hiển thị Top-5 và softmax score. `beagle_100`: beagle 0.934672;
+`Abyssinian_100`: Abyssinian 0.520299. Đây là hai ảnh minh họa, không phải số đo accuracy.
+Gửi ảnh rỗng báo `Upload a valid image`. Bằng chứng: `docs/KY_DEMO_VERIFICATION.json`.
+CLI Top-5 giữ tương thích. Để có giao diện đúng hình3.10/3.11:
+`python app/app.py --checkpoint <vit_b16_e4_seed44_best.pt> --device cpu --port 7861 --attention`.
+Attention rollout đủ12 khối, Q/K từLayerNorm1, residual,14×14patch bilinear224×224.
+Suy luận gốc không đổi và hook được gỡ sau forward. Ảnh test minh họa được chọn trước suy luận:
+Abyssinian_201, Top-1Abyssinian, softmax0.394977; không đánh giá toàn tập test hoặc dùng test chọn siêu tham số.
+Nguồn: `docs/KY_ATTENTION_VERIFICATION.json`.
 
 ## 6. Trạng thái 8 hình và 3 bảng
 
-Tất cả BLOCKED do thiếu caption/đề cương chính xác:
+DONE toàn bộ theo caption/bố cục trong PDF nhóm người dùng cung cấp (46 trang):
 
-| Loại | Các số được giao | Đầu vào còn thiếu |
-|---|---|---|
-| Hình | 1.1, 2.1, 2.2, 2.3, 3.4, 3.6, 3.10, 3.11 | Tên/nội dung từ đề cương và bằng chứng tương ứng |
-| Bảng | 2-3 | Caption và thống kê kích thước ảnh gốc trong notebook EDA |
-| Bảng | 3-9, 3-12 | Tên/nội dung và dữ liệu theo đề cương |
+- Hình1.1: sáu cặp giống, lưới2×6, ảnh đúng tập train, tên giống đúng thứ tự.
+- Hình2.1: số ảnh trainval37 lớp giảm dần, màu mèo/chó, mốc100, nhãn xoay90°.
+- Hình2.2: histogram r rộng0.05, mốc0.95/1.05 và scatter kích thước gốc7.349 ảnh.
+- Hình2.3: một ảnh train, ô đánh giá +4 mẫu tăng cường, seed42 và ID ảnh.
+- Hình3.4: E3 curves xuất bằng plot_curves; hình3.6: log-LR,4 điểm nối và điểm tam giác no-aug.
+- Hình3.10/3.11: screenshot trình duyệt thật giao diện trống/kết quả Top-5+attention E4 seed44 CPU.
+- Bảng2-3: mode/hướng ảnh và min/max/mean từ EDA gốc, đối chiếu lại7.349 ảnh.
+- Bảng3-9: kết quả E3; bảng3-12: đủ5 dòng E5 từ metrics thật, E4seed42 chỉ tái dùng.
 
-Theo dõi từng mục trong `report/KY_FIGURE_TABLE_STATUS.md`.
-Không tự gán biểu đồ E3/E5 vào số hình/bảng chưa xác định; không sửa sản phẩm Trinh/Tâm.
+Danh mục đầy đủ, caption, tệp, trang PDF nguồn và nội dung điền số:
+`report/KY_FIGURE_TABLE_STATUS.md`. Bộ duyệt riêng11 trang: `report/KY_REPORT_FIGURES_TABLES.pdf`.
+Nguồn tái lập: `report/ky_build_report_assets.py`, `report/ky_package_report.py`.
+Không sửa PDF/Word nhóm; không sửa hình3.7–3.9 hoặc nội dung của Trinh/Tâm.
+Bảng3-9 sửa nhãn đơn vị trong asset riêng thànhMiB vì2140.6 trong log làMiB;
+quy đổi SI tương ứng2244.58MB nếu nhóm giữ cộtMB. Không đổi trainer hoặc log.
+
+LR4: 700/736 ảnh validation đúng,10epoch,mean45.94s/epoch,peak5291.8MiB.
+Evidence riêng: `docs/KY_LR4_RUN_MANIFEST.json`.
 
 ## 7. Kiểm thử và xác minh đã chạy
 
-- DONE: `python -m pytest` — 31 passed sau nhập artifact và output notebook thật.
+- DONE: `python -m pytest` — 38 passed sau bổ sung attention; gồm kiểm tra tái dựng Q/K khớp attention PyTorch và thứ tự tích rollout.
 - DONE: `ruff check src tests` — pass toàn bộ. Notebook 07/08: nbformat schema và AST pass.
 - DONE: Colab sau restart kernel: notebook07 có 8 code cell pass, notebook08 có 9 code cell pass.
   Các code cell được exec tuần tự trong namespace riêng; lượt train thật có đủ evidence được tái sử dụng.
@@ -93,15 +109,19 @@ Không tự gán biểu đồ E3/E5 vào số hình/bảng chưa xác định; k
 - DONE: không thay đổi split/seed; kiểm tra config E3/E5 chỉ khác các điều kiện được giao.
 - DONE: best_epoch/accuracy/loss/time trong metrics khớp log và config; không có fake_data trong run thật.
 - DONE: kiểm tra file stage, dung lượng, pattern token và không có checkpoint trong commit.
-- DONE: CI của PR cho commit chuẩn bị d997f28 thành công (lint và pytest).
+- DONE: CI PR31 tại commit9baa59e (run44800749961) thành công.
+- DONE: sửa bootstrap notebook07/08 sau khi Duyên merge và xóa branch remote.
+  Clone commit đã merge0dbb877 vào local branchKy; public clone mới trên Windows pass.
+  Output bootstrap cũ đã xóa, output các cell khác được ghi rõ là evidence lịch sử T4;
+  không tuyên bố đã Run All phiên bản bootstrap mới trên T4.
 
 Bằng chứng: `docs/KY_PIPELINE_VERIFICATION.json`, `docs/KY_NOTEBOOK_VERIFICATION.json`,
 `docs/KY_COLAB_RUN_MANIFEST.json`, cùng log/config/metrics của từng run.
 
 ## 8. Lỗi và giới hạn còn tồn tại
 
-- BLOCKED: checkpoint E4 của nhóm và đề cương/EDA gốc chưa được cung cấp.
-- PENDING: E5-LR4 tùy chọn; các thí nghiệm mới chỉ có seed42 đúng yêu cầu.
+- DONE: PDF nguồn đã cung cấp và đối chiếu đủ11 caption. Không còn blocker dữ liệu/quyền cho asset của Kỳ.
+- DONE: E5-LR4 tùy chọn; các thí nghiệm mới chỉ có seed42 đúng yêu cầu.
 - FAILED (công cụ, đã có phương án thay thế): connector GitHub trả403 khi ghi;
   Git credential helper/Windows credential vault từ môi trường agent bị từ chối truy cập.
   Người dùng push bằng terminal đã đăng nhập; PR được tạo qua phiên GitHub đã đăng nhập.
@@ -118,16 +138,23 @@ Bằng chứng: `docs/KY_PIPELINE_VERIFICATION.json`, `docs/KY_NOTEBOOK_VERIFICA
 - Kết quả T4 và evidence: `c32f46924bbad27c43e3520436d593d9135b7c03`.
 - Branch: https://github.com/duyenphung206-sudo/vit-oxford-pets/tree/ky/e3-e5-demo-report
 - PR: https://github.com/duyenphung206-sudo/vit-oxford-pets/pull/31
-- Review: Duyên. Không tự merge; main và mọi mã dùng chung/E1/E2/E4 không bị agent chỉnh sửa.
+- PR31 đã được Duyên (`duyenphung206-sudo`) merge thành commit0dbb877 ngày21/11; Duyên xóa branch remote.
+- Agent không merge. `main` cục bộ vẫn4d5721b; `origin/main` mới e7f224f gồm cập nhậtREADME của Duyên.
+- Phần demo/EDA/bootstrap mới chỉ làm trên branchKy, không sửa shared/E1/E2/E4.
+- Commit bổ sung: `619e4889c288a308449637a11534dc5c4eb1de58`, người dùng đã push và agent đối chiếu remote SHA.
+- PR bổ sung đang mở: https://github.com/duyenphung206-sudo/vit-oxford-pets/pull/33
+- CI PR33 tại commit619e488 đã pass (run44890918835). Nhờ Duyên review; agent không merge.
+- Link Drive người dùng cung cấp mở thư mục `e4_vit_full_ft` chỉ có seed42/43/44,
+  không chứa đề cương/caption. Sau đó người dùng đã cung cấp PDF đúng; blocker này đã giải quyết.
 - Colab execution record: https://colab.research.google.com/drive/1JbJbd3SKr8L5k-shFy0w7M5VWdU_8GEk
 
 ## 10. Thao tác người dùng
 
 - Khi đồng bộ commit mới từ terminal trong checkout: `git push -u origin ky/e3-e5-demo-report`.
-  PR31 tự cập nhật; không push main và không dùng force push.
-- Cung cấp checkpoint E4 đúng của nhóm và thứ tự37 lớp để hoàn tất demo.
-- Cung cấp đề cương tên/nội dung8 hình +3 bảng, notebook EDA chứa kích thước ảnh gốc.
+  PR31 đã merge; phần bổ sung nằm ở PR33. Không push main và không dùng force push.
+- Duyên duyệt và ghép bộ11 asset vào Word chung; cập nhật danh mục hình/bảng sau khi chèn.
 - Duyên review và quyết định merge.
 
 Checkpoint đã bảo toàn ở `MyDrive/vit-oxford-pets-ky/checkpoints/<experiment>/seed42/best.pt`;
-SHA256 và kích thước của cả4 file có trong manifest. Không đưa các file này vào Git.
+SHA256 và kích thước của4 file ban đầu có trong manifest; checkpoint thứ5 (E5-LR4) có
+trong docs/KY_LR4_RUN_MANIFEST.json. Không đưa các file này vào Git.

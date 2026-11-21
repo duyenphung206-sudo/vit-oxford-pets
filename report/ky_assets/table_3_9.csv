@@ -1,0 +1,5 @@
+Epoch tốt nhất,Val loss,"Val accuracy
+(%)","Thời gian / epoch
+(s)","Bộ nhớ GPU đỉnh
+(MiB)"
+10,0.237091,94.9728,44.43,2140.6

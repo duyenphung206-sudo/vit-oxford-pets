@@ -1,0 +1,191 @@
+{
+  "source_pdf_sha256": "2a37280287e242873c06756a24306678b3bee276d072333cbb2360666f10a34c",
+  "captions": {
+    "1.1": "Sáu cặp giống có ngoại hình gần nhau trong tập Oxford-IIIT Pet",
+    "2.1": "Số ảnh trainval của 37 lớp",
+    "2.2": "Phân bố tỉ lệ khung hình và kích thước ảnh",
+    "2.3": "Ví dụ tăng cường dữ liệu trên một ảnh huấn luyện",
+    "3.4": "Biểu đồ huấn luyện của thực nghiệm E3 (tinh chỉnh một phần)",
+    "3.6": "Val accuracy theo learning rate, có và không có tăng cường dữ liệu",
+    "3.10": "Giao diện ứng dụng demo khi chưa tải ảnh",
+    "3.11": "Kết quả dự đoán và bản đồ attention trên ứng dụng demo",
+    "2-3": "Đặc điểm của 7.349 ảnh có nhãn",
+    "3-9": "Kết quả của thực nghiệm E3 trên tập kiểm định",
+    "3-12": "Kết quả của thực nghiệm E5 trên tập kiểm định"
+  },
+  "pdf_pages": {
+    "1.1": 15,
+    "2.1": 18,
+    "2.2": 19,
+    "2.3": 20,
+    "3.4": 35,
+    "3.6": 38,
+    "3.10": 43,
+    "3.11": 43,
+    "2-3": 19,
+    "3-9": 35,
+    "3-12": 38
+  },
+  "train_pair_ids": [
+    "British_Shorthair_108",
+    "Russian_Blue_175",
+    "Birman_157",
+    "Ragdoll_149",
+    "Egyptian_Mau_143",
+    "Bengal_177",
+    "american_pit_bull_terrier_107",
+    "staffordshire_bull_terrier_168",
+    "samoyed_119",
+    "great_pyrenees_107",
+    "basset_hound_148",
+    "beagle_193"
+  ],
+  "augmentation_train_id": "Abyssinian_10",
+  "seed": 42,
+  "images_decoded": 7349,
+  "image_modes": {
+    "RGB": 7346,
+    "RGBA": 3
+  },
+  "orientation": {
+    "landscape": 4775,
+    "portrait": 2263,
+    "near_square": 311
+  },
+  "histogram_bin_width": 0.05,
+  "largest_histogram_bins": [
+    {
+      "left": 1.3,
+      "right": 1.35,
+      "count": 1963
+    },
+    {
+      "left": 1.5,
+      "right": 1.55,
+      "count": 1415
+    },
+    {
+      "left": 0.65,
+      "right": 0.7,
+      "count": 980
+    }
+  ],
+  "class_trainval_counts": {
+    "Abyssinian": 100,
+    "american_bulldog": 100,
+    "american_pit_bull_terrier": 100,
+    "basset_hound": 100,
+    "beagle": 100,
+    "Bengal": 100,
+    "Birman": 100,
+    "boxer": 100,
+    "British_Shorthair": 100,
+    "chihuahua": 100,
+    "english_setter": 100,
+    "german_shorthaired": 100,
+    "great_pyrenees": 100,
+    "havanese": 100,
+    "japanese_chin": 100,
+    "keeshond": 100,
+    "leonberger": 100,
+    "Maine_Coon": 100,
+    "miniature_pinscher": 100,
+    "Persian": 100,
+    "pomeranian": 100,
+    "pug": 100,
+    "Ragdoll": 100,
+    "Russian_Blue": 100,
+    "saint_bernard": 100,
+    "samoyed": 100,
+    "scottish_terrier": 100,
+    "shiba_inu": 100,
+    "Sphynx": 100,
+    "staffordshire_bull_terrier": 100,
+    "wheaten_terrier": 100,
+    "yorkshire_terrier": 100,
+    "Siamese": 99,
+    "Bombay": 96,
+    "english_cocker_spaniel": 96,
+    "newfoundland": 96,
+    "Egyptian_Mau": 93
+  },
+  "source_annotations_sha256": {
+    "list": "6a54ab256e22f7a33c6f17a7669e58ea5f6f9c7a080ec2622c205aefd4b354da",
+    "trainval": "408f3f609481b939c94634169e6413414b733a3faeba440cbdcc5c02142eebdc",
+    "test": "a5454003774ffe01f4f322756d3ba5495bae21cb30bb217ab285dbfa2bef245c"
+  },
+  "e3_log": {
+    "epoch": [
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0
+    ],
+    "train_loss": [
+      3.3811,
+      2.0222,
+      0.8737,
+      0.4765,
+      0.336,
+      0.273,
+      0.2386,
+      0.2161,
+      0.2073,
+      0.2093
+    ],
+    "val_loss": [
+      2.8173,
+      1.2385,
+      0.5772,
+      0.3814,
+      0.3024,
+      0.2668,
+      0.25,
+      0.2412,
+      0.2376,
+      0.2371
+    ],
+    "train_acc": [
+      0.8115,
+      0.8981,
+      0.9212,
+      0.9378,
+      0.9463,
+      0.9541,
+      0.963,
+      0.9667,
+      0.9647,
+      0.9643
+    ],
+    "val_acc": [
+      0.9117,
+      0.9117,
+      0.9158,
+      0.9429,
+      0.947,
+      0.947,
+      0.9497,
+      0.9511,
+      0.9497,
+      0.9497
+    ]
+  },
+  "demo_screenshots": {
+    "demo_ui_empty": {
+      "path": "figures/demo_ui_empty.png",
+      "sha256": "b5e2075d729b752246d186a767529ea46e5c6e430bb216bf4bf636426a938042",
+      "capture": "Genuine browser screenshot, 1280x720, E4 seed44 CPU --attention; JPEG pixels converted losslessly to PNG"
+    },
+    "demo_ui_result": {
+      "path": "figures/demo_ui_result.png",
+      "sha256": "4cbd237c6d111e0d4a209a57fb86ab31b3c85c0e30f76580211c50d9d920ce4a",
+      "capture": "Genuine browser screenshot, 1280x720, E4 seed44 CPU --attention; JPEG pixels converted losslessly to PNG"
+    }
+  }
+}

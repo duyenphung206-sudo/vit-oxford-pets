@@ -1,0 +1,26 @@
+{
+  "source_commit": "0dbb87734416501711695ccf3f8e0af882bd84f1",
+  "gpu": "Tesla T4",
+  "checkpoint_sha256": "f69652487f33185062187e48a623fb3315ce41c2f01abff510984784344d6bbb",
+  "checkpoint_bytes": 343359029,
+  "drive_path": "/content/drive/MyDrive/vit-oxford-pets-ky/checkpoints/e5_lr4/seed42/best.pt",
+  "training_time_s": 459.5,
+  "metrics": {
+    "experiment": "e5_lr4",
+    "seed": 42,
+    "best_epoch": 10,
+    "best_val_loss": 0.148726,
+    "best_val_acc": 0.951087,
+    "epochs_run": 10,
+    "parameters_total": 85827109,
+    "parameters_trainable": 85827109,
+    "mean_epoch_time_s": 45.94,
+    "peak_gpu_memory_mb": 5291.8,
+    "device": "Tesla T4",
+    "torch": "2.14.1+cu130",
+    "torchvision": "0.29.1+cu130",
+    "python": "3.13.16",
+    "checkpoint": "checkpoints/e5_lr4/seed42/best.pt",
+    "fake_data": false
+  }
+}

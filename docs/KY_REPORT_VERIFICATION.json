@@ -1,0 +1,94 @@
+{
+  "source_pdf_sha256": "2a37280287e242873c06756a24306678b3bee276d072333cbb2360666f10a34c",
+  "source_pdf_unchanged": true,
+  "figures": [
+    {
+      "figure": "1.1",
+      "path": "figures/eda/example_pairs.png",
+      "pixels": [
+        4500,
+        1800
+      ],
+      "sha256": "25e1447081c6de5b3fa274becff8e92ea89d566d454aa86048ddd07c92d4908b"
+    },
+    {
+      "figure": "2.1",
+      "path": "figures/eda/class_distribution.png",
+      "pixels": [
+        4500,
+        2100
+      ],
+      "sha256": "c5675dd5305f6f3f1a37600eeb853013b3a3b2cf28721375cc727c5fa3da670e"
+    },
+    {
+      "figure": "2.2",
+      "path": "figures/eda/aspect_ratio.png",
+      "pixels": [
+        3600,
+        1380
+      ],
+      "sha256": "8e2f50cd24a8f38c934fe2a1e57a66826eb4007b8e8a0fc42abac978ed90d262"
+    },
+    {
+      "figure": "2.3",
+      "path": "figures/augmentation_tv2.png",
+      "pixels": [
+        4050,
+        1020
+      ],
+      "sha256": "203556bea2de48ae395ea269c7db5b0a2989c7084449b38252a470c8339beee1"
+    },
+    {
+      "figure": "3.4",
+      "path": "figures/e3_curves.png",
+      "pixels": [
+        2200,
+        800
+      ],
+      "sha256": "922c6cd13f358d1c95130f08553b1cb3f744e534648a4dd896479fa74c050c95"
+    },
+    {
+      "figure": "3.6",
+      "path": "figures/e5_lr_aug.png",
+      "pixels": [
+        2700,
+        1500
+      ],
+      "sha256": "ee78cc2897cc5f83405fb0e8637500e02cb9b3bef6119ea1886ca952bb987767"
+    },
+    {
+      "figure": "3.10",
+      "path": "figures/demo_ui_empty.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "sha256": "b5e2075d729b752246d186a767529ea46e5c6e430bb216bf4bf636426a938042"
+    },
+    {
+      "figure": "3.11",
+      "path": "figures/demo_ui_result.png",
+      "pixels": [
+        1280,
+        720
+      ],
+      "sha256": "4cbd237c6d111e0d4a209a57fb86ab31b3c85c0e30f76580211c50d9d920ce4a"
+    }
+  ],
+  "tables_done": [
+    "2-3",
+    "3-9",
+    "3-12"
+  ],
+  "package_pdf": "report/KY_REPORT_FIGURES_TABLES.pdf",
+  "package_pages": 11,
+  "package_sha256": "a8d7db96e18e41e427812979db86ea600cb7c3542b84bab34e1814e4450e6394",
+  "visual_review": "All11 pages rendered; contact sheet and full-size tables/demo/EDA figures inspected",
+  "pytest_passed": 38,
+  "ruff": "PASS src/tests/app and Ky report builders",
+  "protected_paths_modified": [],
+  "screenshots": "Genuine CUA browser screenshots, attached to PR33, downloaded unchanged, JPEG decoded to PNG",
+  "demo_default_compatible": true,
+  "attention_mode": "--attention; real E4 seed44 CPU; verified unchanged prediction and hook removal",
+  "package_photo_compression": "Review PDF embeds JPEG94 thumbnails for figures1.1/2.3; original high-resolution PNG/SVG remain unchanged"
+}
