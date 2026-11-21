@@ -1,5 +1,5 @@
 {
-  "status": "DONE REQUIRED SEED42 RUNS; OPTIONAL E5-LR4 PENDING",
+  "status": "DONE ALL SEED42 RUNS INCLUDING OPTIONAL E5-LR4",
   "supersedes": "Earlier provisional AdamW-style LR grid; user-approved E4 SGD protocol now applies",
   "base_config": "configs/e4_vit_full_ft.yaml",
   "seed": 42,

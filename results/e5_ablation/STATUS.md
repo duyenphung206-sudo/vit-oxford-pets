@@ -3,7 +3,8 @@
 DONE: required seed42 runs E5-LR1, E5-LR3 and E5-AUG on Tesla T4; verified config/log/metrics.
 DONE: E5-LR2 reuses the committed E4 seed42 evidence. E4 was not rerun or modified.
 DONE: summary_seed42.csv/json, PNG/SVG comparisons and SHA256-verified Drive checkpoint backups.
-PENDING (optional): E5-LR4, LR=0.03, augmentation on. No value is imputed.
+DONE: optional E5-LR4, LR=0.03, augmentation on; 10 real epochs on T4, val accuracy0.951087, val loss0.148726.
+Evidence and fifth checkpoint backup: docs/KY_LR4_RUN_MANIFEST.json.
 
 The current plan supersedes the earlier provisional LR grid in this directory.
 Checkpoint selection follows minimum validation loss, not maximum validation accuracy.

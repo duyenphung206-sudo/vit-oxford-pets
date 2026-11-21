@@ -1,0 +1,91 @@
+{
+  "checkpoint_source": "https://github.com/duyenphung206-sudo/vit-oxford-pets/releases/tag/v0.9.0",
+  "checkpoint_asset": "vit_b16_e4_seed44_best.pt",
+  "checkpoint_sha256": "525435b0b0338e379fad8238906687a636c4a8ca4bf39539d67f2b1901d9ec77",
+  "checkpoint_bytes": 343359029,
+  "seed": 44,
+  "format": "raw state_dict",
+  "strict_load": true,
+  "device": "cpu",
+  "class_order_verified": "Official trainval labels match the committed train.csv for all 37 classes",
+  "class_names": [
+    "Abyssinian",
+    "american_bulldog",
+    "american_pit_bull_terrier",
+    "basset_hound",
+    "beagle",
+    "Bengal",
+    "Birman",
+    "Bombay",
+    "boxer",
+    "British_Shorthair",
+    "chihuahua",
+    "Egyptian_Mau",
+    "english_cocker_spaniel",
+    "english_setter",
+    "german_shorthaired",
+    "great_pyrenees",
+    "havanese",
+    "japanese_chin",
+    "keeshond",
+    "leonberger",
+    "Maine_Coon",
+    "miniature_pinscher",
+    "newfoundland",
+    "Persian",
+    "pomeranian",
+    "pug",
+    "Ragdoll",
+    "Russian_Blue",
+    "saint_bernard",
+    "samoyed",
+    "scottish_terrier",
+    "shiba_inu",
+    "Siamese",
+    "Sphynx",
+    "staffordshire_bull_terrier",
+    "wheaten_terrier",
+    "yorkshire_terrier"
+  ],
+  "inferences": [
+    {
+      "image_id": "Abyssinian_100",
+      "image_sha256": "81ab214f04753ff30c460e715b54e2d11aa2b7a57c7f58c0f2a9118826cea254",
+      "top5": {
+        "Abyssinian": 0.5202986001968384,
+        "Bengal": 0.15548963844776154,
+        "Maine_Coon": 0.11847741901874542,
+        "British_Shorthair": 0.06975683569908142,
+        "Russian_Blue": 0.04845840483903885
+      },
+      "inference_seconds": 0.636,
+      "official_split": "trainval"
+    },
+    {
+      "image_id": "beagle_100",
+      "image_sha256": "adb80c22aa0468a31e8ee59901c75e9a5840ee02f92149c1405f0e0d4d6f6b68",
+      "top5": {
+        "beagle": 0.9346720576286316,
+        "basset_hound": 0.02336118556559086,
+        "german_shorthaired": 0.0024000080302357674,
+        "newfoundland": 0.0019468888640403748,
+        "scottish_terrier": 0.0019385396735742688
+      },
+      "inference_seconds": 0.429,
+      "official_split": "trainval"
+    }
+  ],
+  "invalid_image_rejected": true,
+  "gradio_interface_created": true,
+  "ui_upload": {
+    "status": "DONE",
+    "browser_url": "http://127.0.0.1:7860/",
+    "dog_upload_top1": "beagle",
+    "dog_display_score": "93%",
+    "cat_upload_top1": "Abyssinian",
+    "cat_display_score": "52%",
+    "empty_input_error": "Upload a valid image",
+    "top5_visible_for_both": true
+  },
+  "test_selection": "Two illustration uploads only; no aggregate test evaluation or hyperparameter selection."
+}
