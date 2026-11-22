@@ -1,0 +1,18 @@
+{
+  "ResNet-50": {
+    "parameters": 23583845,
+    "file_mb": 94.6,
+    "batch1_ms": 7.79,
+    "batch1_images_per_s": 128.4,
+    "batch64_ms": 72.26,
+    "batch64_images_per_s": 885.7
+  },
+  "ViT-B/16": {
+    "parameters": 85827109,
+    "file_mb": 343.4,
+    "batch1_ms": 9.77,
+    "batch1_images_per_s": 102.3,
+    "batch64_ms": 183.08,
+    "batch64_images_per_s": 349.6
+  }
+}
