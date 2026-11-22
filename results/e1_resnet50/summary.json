@@ -1,0 +1,42 @@
+{
+  "seeds": [
+    42
+  ],
+  "n_runs": 1,
+  "best_val_acc": {
+    "mean": 0.9375,
+    "std": 0.0,
+    "values": [
+      0.9375
+    ]
+  },
+  "best_val_loss": {
+    "mean": 0.435187,
+    "std": 0.0,
+    "values": [
+      0.435187
+    ]
+  },
+  "best_epoch": {
+    "mean": 10,
+    "std": 0.0,
+    "values": [
+      10
+    ]
+  },
+  "mean_epoch_time_s": {
+    "mean": 39.52,
+    "std": 0.0,
+    "values": [
+      39.52
+    ]
+  },
+  "peak_gpu_memory_mb": {
+    "mean": 3036.9,
+    "std": 0.0,
+    "values": [
+      3036.9
+    ]
+  },
+  "parameters_trainable": 23583845
+}
