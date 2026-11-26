@@ -1,0 +1,5 @@
+base: e4_vit_full_ft.yaml
+experiment: e2_vit_linear_probe
+model:
+  strategy: linear_probe
+  unfreeze_last_k: 0

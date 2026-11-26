@@ -1,0 +1,85 @@
+{
+  "author": "Nguyen Ngoc Ky supporting Trinh",
+  "architecture": "ViT-B/16, 12 blocks, 12 heads, dim768, MLP3072",
+  "implementation": "src/models/ky_independent_vit.py; no torchvision model inside",
+  "device": "cpu",
+  "dtype": "float32",
+  "eval_mode": true,
+  "dropout": 0,
+  "atol": 1e-05,
+  "rtol": 0.0001,
+  "weight_source": "/content/ky-e4-seed44-release.pt",
+  "checkpoint_sha256": "525435b0b0338e379fad8238906687a636c4a8ca4bf39539d67f2b1901d9ec77",
+  "implementation_sha256": "f4eaf1f1c50fc6e87d1ae26ba5699f1fc556fa747bc22738cf6630341742f979",
+  "cases": [
+    {
+      "input": "random_seed42",
+      "shape": [
+        1,
+        37
+      ],
+      "max_abs_error": 1.1920928955078125e-06,
+      "mean_abs_error": 3.93194312664491e-07,
+      "allclose": true,
+      "reference_top1": [
+        22
+      ],
+      "independent_top1": [
+        22
+      ],
+      "reference_logit_max_abs": 0.5398915410041809
+    },
+    {
+      "input": "zeros",
+      "shape": [
+        1,
+        37
+      ],
+      "max_abs_error": 9.164214134216309e-07,
+      "mean_abs_error": 3.7716046108471346e-07,
+      "allclose": true,
+      "reference_top1": [
+        14
+      ],
+      "independent_top1": [
+        14
+      ],
+      "reference_logit_max_abs": 0.5409440398216248
+    },
+    {
+      "input": "Abyssinian_100",
+      "shape": [
+        1,
+        37
+      ],
+      "max_abs_error": 2.6226043701171875e-06,
+      "mean_abs_error": 8.392978543270146e-07,
+      "allclose": true,
+      "reference_top1": [
+        0
+      ],
+      "independent_top1": [
+        0
+      ],
+      "reference_logit_max_abs": 4.9875569343566895
+    },
+    {
+      "input": "beagle_100",
+      "shape": [
+        1,
+        37
+      ],
+      "max_abs_error": 1.6689300537109375e-06,
+      "mean_abs_error": 5.776716989203123e-07,
+      "allclose": true,
+      "reference_top1": [
+        4
+      ],
+      "independent_top1": [
+        4
+      ],
+      "reference_logit_max_abs": 6.466197490692139
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "strict_load": "<All keys matched successfully>",
+  "backbone_tensor_keys_checked": 150,
+  "all_backbone_tensors_bitwise_equal_ImageNet1K_V1": true,
+  "head_weight_shape": [
+    37,
+    768
+  ],
+  "parameters": {
+    "total": 85827109,
+    "trainable": 28453
+  },
+  "validation_recomputed": {
+    "loss": 0.3569956421852112,
+    "acc": 0.9307065217391305
+  },
+  "validation_matches_recorded_best": true,
+  "validation_images": 736,
+  "device": "Tesla T4",
+  "test_evaluation": "NOT_RUN",
+  "checkpoint_sha256_from_verified_run": "79a29b4d7ca922e81e57aa4c32bfd1f2d55de29a7fa8b753f654392db65abd91"
+}

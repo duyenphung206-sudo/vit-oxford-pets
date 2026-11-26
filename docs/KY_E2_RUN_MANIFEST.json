@@ -1,0 +1,16 @@
+{
+  "author": "Nguyen Ngoc Ky, supporting Trinh; not attributed as Trinh implementation",
+  "source_commit": "3359b2bdd2a081faa20f9ff83a93c2ccbac12071",
+  "gpu": "Tesla T4",
+  "training_engine": "unchanged src.train",
+  "run": "/content/drive/MyDrive/vit-oxford-pets-ky/e2-support/20261124-151320",
+  "status": "DONE",
+  "test_evaluation": "NOT_RUN; validation only",
+  "helper_sha256": "f79682a3e44633546a5fe2c14d5da1504660ed387858fd83509235aa26897977",
+  "config_sha256": "a1bcda05fa3044f0f024794445078221a0aa9c1f786679a8beb2d3b6df36e898",
+  "checkpoint_sha256": "79a29b4d7ca922e81e57aa4c32bfd1f2d55de29a7fa8b753f654392db65abd91",
+  "checkpoint_bytes": 343359029,
+  "epochs_run": 10,
+  "elapsed_epoch_time_s": 512.4,
+  "gpu_memory_unit": "MiB (trainer field is named peak_gpu_memory_mb)"
+}

@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "checkpoint_sha256": "525435b0b0338e379fad8238906687a636c4a8ca4bf39539d67f2b1901d9ec77",
+  "device": "cpu",
+  "source_commit": "3359b2bdd2a081faa20f9ff83a93c2ccbac12071",
+  "app_sha256": "0bcc087ddd771f5b3719a11492bb5bdcfcbd9c650f9c287db2c952ab9439beb6",
+  "official_37_class_order_equal": true,
+  "eval_preprocess_exact_tensor_equal": true,
+  "real_inferences": [
+    {
+      "image": "Abyssinian_100",
+      "top5": {
+        "Abyssinian": 0.520298421382904,
+        "Bengal": 0.15548966825008392,
+        "Maine_Coon": 0.11847759783267975,
+        "British_Shorthair": 0.069756880402565,
+        "Russian_Blue": 0.048458412289619446
+      },
+      "attention_predictions_unchanged": true,
+      "hooks_removed": true,
+      "rollout": {
+        "layers": 12,
+        "grid": [
+          14,
+          14
+        ],
+        "row_sum_max_error": 2.384185791015625e-07,
+        "patch_min": 0.0033744226675480604,
+        "patch_max": 0.006872391793876886
+      }
+    },
+    {
+      "image": "beagle_100",
+      "top5": {
+        "beagle": 0.9346717596054077,
+        "basset_hound": 0.02336146868765354,
+        "german_shorthaired": 0.002400001510977745,
+        "newfoundland": 0.00194688537158072,
+        "scottish_terrier": 0.0019385399064049125
+      },
+      "attention_predictions_unchanged": true,
+      "hooks_removed": true,
+      "rollout": {
+        "layers": 12,
+        "grid": [
+          14,
+          14
+        ],
+        "row_sum_max_error": 2.384185791015625e-07,
+        "patch_min": 0.003374671097844839,
+        "patch_max": 0.008128741756081581
+      }
+    }
+  ],
+  "invalid_image_rejected": true,
+  "gradio_interface_created": true,
+  "fresh_browser_upload": "PASS; uploaded Abyssinian_100.jpg and beagle_100.jpg through authenticated Colab port proxy, submitted and observed Top-5",
+  "fresh_browser_attention_image": "PASS; beagle overlay loaded with naturalWidth=224, input naturalWidth=333",
+  "colab_proxy_note": "Gradio launch root_path set to authenticated Colab proxy origin for image URLs; no shared app source changed, share=False"
+}
