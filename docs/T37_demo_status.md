@@ -1,10 +1,38 @@
-# T37 — Demo Top-5 (PARTIALLY COMPLETED)
+# T37 — Demo Top-5 (COMPLETED)
 
-Tái dùng semantics Predictor và Gradio demo nguồn; nâng Top-3 thành Top-5. App độc lập chỉ phục vụ demo checkpoint torchvision ViT-B/16, không sửa model factory TV1.
+Demo chính thức dùng `app/app.py` của main hiện tại, không thay đổi mã ứng dụng. Đã đối chiếu với `origin/main` tại commit `e7335a9ffa8dcaf25356759e1e5626d84d41a019` (sau PR #36 và #37); Git blob của app là `f920f39a82594b80bbf4eb8dea0c2b31292b3e18`. PR [#36](https://github.com/duyenphung206-sudo/vit-oxford-pets/pull/36) đã merge tại `66214b01cfbe6ec69bb84f2f1b44313f977c9304`.
 
-Từ gốc checkout: `python app/app.py --checkpoint path/to/best.pt --device cpu --port 7860`.
-Cần môi trường có torch, torchvision, pillow, gradio phù hợp (đã thử Gradio trong .venv nguồn). Checkpoint không đóng gói; loader từ chối smoke-only và architecture khác vit_b_16/37 lớp. Không sửa nguồn hoặc checkpoint.
+## Checkpoint chính thức
 
-Đã chạy inference ảnh thật Abyssinian_100 bằng checkpoint SHA256 4c897b64829284a09bd9e85ba2984b97683cd074cb5711086bd698c4158331cb; trả 5 lớp và điểm softmax. Đã khởi tạo Gradio Interface thành công. JSON ghi kết quả thật ở T37_INFERENCE_VERIFICATION.json. Môi trường Python mặc định thiếu Gradio, nên phép kiểm tra này dùng môi trường nguồn đã có, không phải môi trường sạch.
+- Release: [v1.0.0](https://github.com/duyenphung206-sudo/vit-oxford-pets/releases/tag/v1.0.0).
+- Asset: [vit_b16_e4_seed44_best.pt](https://github.com/duyenphung206-sudo/vit-oxford-pets/releases/download/v1.0.0/vit_b16_e4_seed44_best.pt), 343,359,029 byte; E4 seed 44.
+- SHA256: `525435b0b0338e379fad8238906687a636c4a8ca4bf39539d67f2b1901d9ec77`.
+- Ngày 2026-11-27: SHA256 cục bộ khớp chính xác digest asset của Release v1.0.0. Tái dùng file hiện có, không tải lại. Đây cũng là các byte checkpoint đã kiểm chứng trước ở v0.9.0; không thay bằng mô hình cá nhân.
+- Nạp raw state_dict bằng `weights_only=True`, `strict=True`, ViT-B/16 với head 37 lớp. Nhãn lấy theo label ID trong `data/splits/train.csv`; tiền xử lý dùng `IMAGENET1K_V1.transforms()`.
 
-Còn thiếu: attention map lấy từ mô hình thật, kiểm thử upload qua browser và GIF/ảnh demo. Không tạo figures/demo.gif giả, không dùng heatmap minh họa. Không được báo T37 hoàn tất trước khi ba phần này được kiểm chứng. Softmax không phải xác suất đúng được hiệu chỉnh.
+## Chức năng đã kiểm chứng
+
+- Giao diện Gradio có tải ảnh, Submit/Clear, Top-5 và ảnh “Attention rollout (model crop)” khi bật `--attention`.
+- Suy luận CPU trên hai ảnh thật `Abyssinian_100` và `beagle_100`: trả đúng 5 nhãn và điểm softmax. Kết quả minh họa Top-1 lần lượt Abyssinian 52.0299% và beagle 93.4672%; không coi hai ảnh là phép đo accuracy.
+- Attention rollout thật từ Q/K của đủ 12 encoder: trung bình head, cộng identity và chia 2, nhân theo thứ tự lớp; lấy CLS tới 196 patch (14×14), nội suy và phủ lên crop 224×224.
+- Kiểm tra lại ngày 2026-11-27: dự đoán có attention trùng hoàn toàn dự đoán thường trên cả hai ảnh; ảnh phủ 224×224, sai số tổng hàng rollout tối đa khoảng 2.39e-7; hook được tháo sau suy luận.
+- Khởi chạy đúng CLI `--attention`, mở giao diện tại localhost và kiểm tra API tải file → phân loại → Top-5 + ảnh rollout thành công cho cả hai ảnh. Môi trường hiện có: Python 3.12.14, torch 2.15.0+cpu, torchvision 0.29.2+cpu, Gradio 6.32.0; không phải kiểm thử cài mới môi trường sạch.
+- 7 kiểm thử trong `tests/test_ky_demo.py` đạt: thứ tự nhãn, từ chối checkpoint không phù hợp, đầu vào rỗng, thứ tự rollout và đối chiếu Q/K với attention gốc.
+- Bằng chứng lịch sử đã có: [upload ảnh thật qua browser](KY_DEMO_VERIFICATION.json), [attention rollout](KY_ATTENTION_VERIFICATION.json), [ảnh giao diện](../figures/demo_ui_result.png), [ảnh attention](../report/ky_assets/demo_attention_overlay.png). JSON T37_INFERENCE_VERIFICATION.json là phép kiểm tra checkpoint cũ; không dùng SHA của nó để nhận diện checkpoint demo chính thức.
+- Giới hạn kiểm tra mới: giao diện đã mở trực tiếp bằng trình duyệt; thao tác upload bằng chuột trong lượt 2026-11-27 bị công cụ điều khiển trình duyệt dừng vì không xác định URL đủ chắc chắn. Không tuyên bố đã lặp lại trọn luồng upload bằng chuột trong lượt này; kiểm tra upload mới dùng API Gradio cục bộ. Luồng browser trước đó được ghi trong bằng chứng lịch sử ở trên.
+
+Softmax không phải xác suất đúng đã hiệu chỉnh; attention rollout là minh họa định tính, không phải giải thích nhân quả. Không chỉnh model factory, trainer, mô hình hay checkpoint; không chạy lại thực nghiệm.
+
+## Chạy demo để quay video
+
+Từ gốc repository, với Python đã cài các thư viện trong `requirements.txt`:
+
+```bash
+python app/app.py --checkpoint <đường dẫn tệp .pt> --device cpu --port 7860 --attention
+```
+
+Mở [http://127.0.0.1:7860](http://127.0.0.1:7860). Nếu port đang có phiên demo kiểm tra thì dùng phiên đang chạy, hoặc dừng phiên đó trước khi chạy lại.
+
+Kịch bản quay: mở giao diện → tải ảnh mèo → Submit → chỉ Top-5 và attention → Clear → tải ảnh chó → Submit → nêu giới hạn softmax/attention.
+
+**Demo phần mềm: COMPLETED. Video giới thiệu: chưa quay/chưa hoàn thành; không có GIF/video giả và không dùng trạng thái COMPLETED của T37 để tuyên bố đã quay video.**
